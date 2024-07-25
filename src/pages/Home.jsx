@@ -24,13 +24,13 @@ const Home = () => {
             </form>
           </div>
 
-          <div>
+          {/* <div>
             <p className="searchText">Location</p>
             <form className="searchBar2">
               <button className="searchBarButton">🔍</button>
               <input className="searchBarInput" placeholder="City or zip code" />
             </form>
-          </div>
+          </div> */}
         </div>
 
         <br/>

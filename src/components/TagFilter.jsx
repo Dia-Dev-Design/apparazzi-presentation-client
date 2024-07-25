@@ -12,9 +12,12 @@ import { Link } from "react-router-dom";
 import { convertGPS } from "../services/convertGPS";
 import TheseTags from "./TheseTags";
 
+import tagIcon from '../assets/AppStar.png'
+
+
 const TagFilter = ({ children, allTags, setAllTags }) => {
   let myIcon = L.icon({
-    iconUrl: require("../AppStar.png"),
+    iconUrl: tagIcon,
     iconSize: [36, 36],
     iconAnchor: [18, 18],
   });

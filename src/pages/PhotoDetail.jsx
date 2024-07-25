@@ -12,9 +12,11 @@ import L from "leaflet";
 
 import Photo from "../components/Photo";
 
+import tagIcon from '../assets/AppStar.png'
+
 const PhotoDetails = () => {
   let myIcon = L.icon({
-    iconUrl: require("../AppStar.png"),
+    iconUrl: tagIcon,
     iconSize: [36, 36],
     iconAnchor: [18, 18],
   });

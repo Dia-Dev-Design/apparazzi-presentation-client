@@ -33,12 +33,12 @@ const Navbar = () => {
           <Link to="/" className="icon">
             Home
           </Link>
-          <Link to="/leaderboard" className="icon">
+          {/* <Link to="/leaderboard" className="icon">
             LeaderBoard
-          </Link>
-          <Link to="/about" className="icon">
+          </Link> */}
+          {/* <Link to="/about" className="icon">
             About
-          </Link>
+          </Link> */}
           <Link to="/allPhotos" className="icon">
             All Photos
           </Link>
