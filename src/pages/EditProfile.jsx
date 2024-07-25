@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { post } from "../services/authService";
 import { get } from "../services/authService";
@@ -118,6 +118,8 @@ const EditProfile = () => {
               name="email"
               value={updatedUser.email}
             ></input>
+
+            {/* phoneNumber */}
 
             <button onClick={handleSubmit} type="button">
               Update Profile

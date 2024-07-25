@@ -1,4 +1,5 @@
-import React from "react";
+import { useState, useContext, } from 'react'
+import { AuthContext } from '../context/auth.context';
 import ConfirmPassword from "../components/ConfirmPassword";
 import Email from "../components/Email";
 import Password from "../components/Password";
@@ -8,64 +9,51 @@ import { post } from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  let [username, setUsername] = React.useState("");
-  let [email, setEmail] = React.useState("");
-  let [password, setPassword] = React.useState("");
-  let [confirmPassword, setConfirmPassword] = React.useState("");
-  let [errormessage, setErrormessage] = React.useState("");
-  let [phoneNumber, setPhoneNumber] = React.useState("");
+  let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [confirmPassword, setConfirmPassword] = useState("");
+  let [errormessage, setErrormessage] = useState("");
+  let [phoneNumber, setPhoneNumber] = useState("");
 
   const { storeToken, authenticateUser } = useContext(AuthContext)
 
   const navigate = useNavigate();
 
-  const regexExp =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+  const handleSubmit = (e) => {
 
-  function checkError(e) {
-    e.preventDefault();
-    if (username.length < 4) {
-      setErrormessage("username must be at least four characters");
-    } else if (password.length < 6) {
-      setErrormessage("password must be at least 6 characters");
-    } else if (password === "password") {
-      setErrormessage("your password can't be 'password'");
-    } else if (password !== confirmPassword) {
-      setErrormessage("your password didn't match");
-    } else if (!regexExp.test(email)) {
-      setErrormessage("that is not a valid email address");
-    } else {
-      setErrormessage(`Welcome ${username}!`);
-      post("/auth/signup", {
-        username: username,
-        password: password,
-        email: email,
+    e.preventDefault()
+
+    post("/auth/signup", {
+      username: username,
+      password: password,
+      email: email,
+    })
+      .then((results) => {
+        storeToken(results.data.authToken)
+        authenticateUser()
+        navigate('/')
       })
-        .then((results) => {
-          localStorage.setItem("authToken", results.data.token);
-          localStorage.setItem("id", results.data.id);
-          navigate("/");
-        })
-        .catch((err) => {
-          console.log("Something went wrong", err.message);
-        });
-    }
+      .catch((err) => {
+        console.log("Something went wrong=====>", err.response.data.message);
+      });
+
   }
 
   return (
     <div className="homeLanding">
       <div className="homeContainer">
-        <form onSubmit={checkError}>
+        <form onSubmit={handleSubmit}>
           <h1>APPARAZZI</h1>
           <br/>
           <Username setUsername={setUsername} />
           <Email setEmail={setEmail} />
           <Password setPassword={setPassword} />
           <ConfirmPassword setConfirmPassword={setConfirmPassword} />
-          <PhoneNumber setPhoneNumber={setPhoneNumber} />
+          {/* <PhoneNumber setPhoneNumber={setPhoneNumber} /> */}
 
           <br />
-          <button className="submitButton">Sign Up</button>
+          <button type='submit' className="submitButton">Sign Up</button>
           <br/>
 
           <p>Already have an account?<Link to="/login">Log In</Link></p>

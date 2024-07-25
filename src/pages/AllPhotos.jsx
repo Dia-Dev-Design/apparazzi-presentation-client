@@ -1,15 +1,14 @@
-import axios from "axios";
-import React from "react";
-import { baseUrl } from "../services/baseUrl";
+import { useEffect, useState } from "react";
+import { get } from "../services/authService";
 import Photo from "../components/Photo";
 
 const AllPhotos = () => {
-  const [photos, setPhotos] = React.useState([]);
+  const [photos, setPhotos] = useState([]);
 
   
   let getPhotos = () => {
-    axios
-    .get(baseUrl + "/photos/all-photos")
+
+    get("/photos/all-photos")
     .then((results) => {
       setPhotos(results.data.photos);
     })
@@ -19,7 +18,7 @@ const AllPhotos = () => {
     });
   };
   
-  React.useEffect(() => {
+  useEffect(() => {
     getPhotos();
   }, []);
   return (
