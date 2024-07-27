@@ -10,7 +10,7 @@ import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Tags from "./pages/Tags";
 import AllPhotos from "./pages/AllPhotos";
-import PhotoDetails from "./pages/PhotoDetail";
+import PhotoDetails from "./pages/PhotoDetails";
 import EditProfile from "./pages/EditProfile";
 import SubmitPhoto from "./pages/SubmitPhoto";
 import TagDetails from "./pages/TagDetails";

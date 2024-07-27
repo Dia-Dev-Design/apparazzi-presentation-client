@@ -5,7 +5,7 @@ import { get } from "../services/authService";
 import { uploadProfilePhoto } from "../services/uploadFileService";
 
 const EditProfile = () => {
-  const [updatedUser, setupdatedUser] = React.useState({
+  const [updatedUser, setupdatedUser] = useState({
     email: "",
     name: "",
     bio: "",
@@ -13,7 +13,7 @@ const EditProfile = () => {
     location: "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     getUser();
   }, []);
 

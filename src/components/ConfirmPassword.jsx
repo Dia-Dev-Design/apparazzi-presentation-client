@@ -1,13 +1,13 @@
 import React from "react";  
 
-const ConfirmPassword = (props) => {
+const ConfirmPassword = ({ setConfirmPassword, confirmPassword }) => {
 
     return (
 
         <div>
             <label>Confirm Password</label>
             <br />
-            <input type="password" name='confirmPassword' onChange={(e)=>props.setConfirmPassword(e.target.value)} value={props.confirmPassword} placeholder="Password"/>
+            <input type="password" name='confirmPassword' onChange={(e)=> setConfirmPassword(e.target.value)} value={confirmPassword} placeholder="Password"/>
         </div>
 
     )

@@ -1,5 +1,5 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 import { useParams } from "react-router-dom";
 import { post, get } from "../services/authService";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import L from "leaflet";
 
 import Photo from "../components/Photo";
 
-import tagIcon from '../assets/AppStar.png'
+import tagIcon from "../assets/AppStar.png";
 
 const PhotoDetails = () => {
   let myIcon = L.icon({
@@ -35,39 +35,36 @@ const PhotoDetails = () => {
 
   const navigate = useNavigate();
 
-  let id = localStorage.getItem("id");
+  const { user } = useContext(AuthContext);
 
-  
-  const fetchPhoto = () => {
+  const getPhoto = () => {
+
     get(`/photos/${params.id}/details`)
-    .then((res) => {
-      console.log("This is the photo", res.data)
-      setPhoto(res.data.result);
-    })
-    .catch((err) => console.log(err));
+      .then((res) => {
+        console.log("This is the photo", res.data);
+        setPhoto(res.data.result);
+      })
+      .catch((err) => console.log(err));
   };
-  
-  useEffect(() => {
-    fetchPhoto();
-  }, []);
 
   const deletePhoto = () => {
     post(`/photos/${params.id}/delete`)
       .then((res) => {
+        console.log("Delete Response =====>", res.data.message)
         navigate("/profile");
       })
       .catch((err) => console.log(err));
   };
 
-  function update(newComment) {
+  const update = (newComment) => {
     post(`/comments/${params.id}/add-comment`, newComment)
       .then((results) => {
-        fetchPhoto();
+        getPhoto();
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }
+  };
 
   const handleChange = (e) => {
     setComment({ ...comment, [e.target.name]: e.target.value });
@@ -81,6 +78,10 @@ const PhotoDetails = () => {
     });
   };
 
+  useEffect(() => {
+    getPhoto();
+  }, []);
+
   return (
     <div className="detailContainer">
       <div className="photoDetailContainer">
@@ -93,7 +94,7 @@ const PhotoDetails = () => {
 
       <div className="detailContent">
         <div className="deleteButton">
-          {photo.contributor && id === photo.contributor._id && (
+          {photo.contributor && user._id === photo.contributor._id && (
             <button onClick={deletePhoto}>Delete Photo</button>
           )}
         </div>
@@ -105,16 +106,16 @@ const PhotoDetails = () => {
 
           <br />
 
-          <div>
-            <form>
+          <div >
+            <form onSubmit={handleSubmit}>
               <input
                 onChange={handleChange}
                 type="text"
                 name="comment"
                 value={comment.comment}
-              ></input>
+              />
 
-              <button onClick={handleSubmit} type="button">
+              <button type="sumbit">
                 Add Comment
               </button>
             </form>

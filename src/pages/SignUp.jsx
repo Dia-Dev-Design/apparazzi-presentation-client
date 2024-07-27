@@ -21,22 +21,27 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-
     e.preventDefault()
 
-    post("/auth/signup", {
-      username: username,
-      password: password,
-      email: email,
-    })
-      .then((results) => {
-        storeToken(results.data.authToken)
-        authenticateUser()
-        navigate('/')
+    if (password === confirmPassword) {
+      post("/auth/signup", {
+        username: username,
+        password: password,
+        email: email,
       })
-      .catch((err) => {
-        console.log("Something went wrong=====>", err.response.data.message);
-      });
+        .then((results) => {
+          storeToken(results.data.authToken)
+          authenticateUser()
+          navigate('/')
+        })
+        .catch((err) => {
+          console.log("Something went wrong=====>", err.response.data.message);
+          setErrormessage(err.response.data.message)
+        });
+
+    } else {
+      setErrormessage("Provided password does not match.")
+    }
 
   }
 
