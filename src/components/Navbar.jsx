@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 import { AuthContext } from "../context/auth.context";
 
-import AppIcon from "../assets/ApparazziIcon_v2.jpg";
+// import AppIcon from "../assets/ApparazziIcon_v2.jpg";
+import AppIcon from "../assets/ApparazziIconSmall.jpg";
 import UserIcon from "../assets/user.png";
 import SubmitIcon from "../assets/add_image.png";
 import NotificationIcon from "../assets/notification.png";

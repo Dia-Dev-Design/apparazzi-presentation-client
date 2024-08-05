@@ -1,80 +1,58 @@
 import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { post } from "../services/authService";
 import { get } from "../services/authService";
 import { uploadProfilePhoto } from "../services/uploadFileService";
+import { fileChange } from "../services/fileChange";
 
 const EditProfile = () => {
-  const [updatedUser, setupdatedUser] = useState({
-    email: "",
-    name: "",
-    bio: "",
-    imageUrl: "",
-    location: "",
-  });
+  const [updatedUser, setupdatedUser] = useState(null);
+  const [disabled, setDisabled] = useState(false)
 
-  useEffect(() => {
-    getUser();
-  }, []);
 
-  let getUser = () => {
-    get("/users/my-profile")
-      .then((results) => {
-        setupdatedUser(results.data.foundUser);
-      })
-
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
+  const { user, storeToken, authenticateUser } = useContext(AuthContext)
+ 
   let navigate = useNavigate();
 
-  const removeFalsy = (obj) => {
-    let newObj = {};
-    Object.keys(obj).forEach((prop) => {
-      if (obj[prop]) {
-        newObj[prop] = obj[prop];
-      }
-    });
-    return newObj;
-  };
-
   const handleFileUpload = (e) => {
-    const uploadData = new FormData();
-
-    uploadData.append("imageUrl", e.target.files[0]);
-
-    uploadProfilePhoto(uploadData)
-      .then((response) => {
-        setupdatedUser({ ...updatedUser, imageUrl: response.fileUrl });
+    setDisabled(true)
+    fileChange(e)
+      .then((res) => {
+        console.log("This is the result of the file upload++++++>", res.data)
+        setupdatedUser((prev) => ({...prev, ["imageUrl"]: res.data.image}))
+        setDisabled(false)
       })
-      .catch((err) => console.log("Error while uploading the file: ", err));
+      .catch((err) => {
+        console.log("Error uploading photo", err)
+      })
+
   };
 
-  function update(noFalsy) {
-    post(`/users/edit-profile-without-picture`, noFalsy)
-      .then(navigate("/profile"))
+  const handleChange = (e) => {
+    setupdatedUser((prev) => ({...prev, [e.target.name]: e.target.value }))
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    post(`/users/edit-profile-without-picture`, updatedUser)
+      .then((res) => {
+        console.log("This is the updated use")
+        storeToken(res.data.authToken)
+        authenticateUser()
+        navigate("/profile")
+      })
       .catch((error) => {
         console.error("There was an error!", error);
       });
   }
 
-  const handleChange = (e) => {
-    setupdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    update(removeFalsy(updatedUser));
-    setupdatedUser({
-      email: "",
-      name: "",
-      bio: "",
-      imageUrl: "",
-      location: "",
-    });
-  };
+  useEffect(() => {
+    if(user) {
+      console.log("This is the user =====>", user)
+      setupdatedUser(user)
+    }
+  }, [user])
 
   return (
     <div className="homeLanding">
@@ -83,48 +61,55 @@ const EditProfile = () => {
         <br />
 
         <div>
-          <form>
+
+        {
+          updatedUser &&
+
+          <form onSubmit={handleSubmit}>
             <label>Name</label>
             <input
               onChange={handleChange}
               type="text"
               name="name"
-              value={updatedUser.name}
-            ></input>
+              value={updatedUser.username}
+            />
             <label>Location</label>
             <input
               onChange={handleChange}
               type="text"
               name="location"
               value={updatedUser.location}
-            ></input>
+            />
             <label>Profile Picture</label>
             <input
-              onChange={(e) => handleFileUpload(e)}
+              onChange={handleFileUpload}
               type="file"
               name="imageUrl"
-            ></input>
+            />
             <label>Bio</label>
             <input
               onChange={handleChange}
               type="text"
               name="bio"
               value={updatedUser.bio}
-            ></input>
+            />
             <label>Email</label>
             <input
               onChange={handleChange}
               type="text"
               name="email"
               value={updatedUser.email}
-            ></input>
+            />
 
             {/* phoneNumber */}
 
-            <button onClick={handleSubmit} type="button">
+            <button disabled={disabled} type="submit">
               Update Profile
             </button>
           </form>
+
+
+        }
         </div>
 
         <button onClick={() => navigate("/delete-profile")}>
