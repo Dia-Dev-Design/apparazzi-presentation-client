@@ -9,3 +9,14 @@ export const fileChange = (e) => {
     return post('/photos/image-upload', uploadData)
 
 }
+
+export const newPhoto = (e) => {
+
+    const uploadData = new FormData();
+
+    uploadData.append("imageUrl", e.target.files[0]);
+
+    return post('/photos/new-photo', uploadData)
+
+}
+

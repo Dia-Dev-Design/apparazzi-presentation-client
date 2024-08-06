@@ -1,87 +1,93 @@
-import React from "react";
+import { useState } from "react";
 import { uploadNewPhoto } from "../services/uploadFileService";
 import { post } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import { newPhoto } from "../services/fileChange";
 
 const SubmitPhoto = () => {
-  const [photo, setPhoto] = React.useState({
+  const [photo, setPhoto] = useState({
     description: "",
     tags: "",
     imageUrl: "",
+    _id: "",
   });
 
-  const [photoId, setPhotoId] = React.useState({
-    id: "",
-  });
+  const [disabled, setDisabled] = useState(false);
 
   let navigate = useNavigate();
 
-  const handleFileUpload = (e) => {
-    const uploadData = new FormData();
-
-    uploadData.append("imageUrl", e.target.files[0]);
-
-    console.log("Uploading file ===>", e.target.files)
-
-    uploadNewPhoto(uploadData)
-      .then((response) => {
-        setPhoto({ ...photo, imageUrl: response.fileUrl });
-        setPhotoId({ id: response.newlyCreatedPhotoFromDB._id });
-      })
-      .catch((err) => console.log("Error while uploading the file: ", err));
+  const handleTextChange = (e) => {
+    setPhoto((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  function update(photo) {
-    post(`/photos/${photoId.id}/add-after`, {
-      description: photo.description,
-      tags: photo.tags.replace(/\s/g, "").toLowerCase().split("#"),
-    })
-      .then(navigate("/profile"))
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  }
+  const handleFileUpload = (e) => {
+    setDisabled(true);
 
-  const handleChange = (e) => {
-    setPhoto({ ...photo, [e.target.name]: e.target.value });
+    newPhoto(e)
+      .then((response) => {
+        setPhoto({...response.data});
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err))
+      .finally(() => {
+        setDisabled(false);
+      });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    update(photo);
-    setPhoto({
-      description: "",
-      tags: "",
-      imageUrl: "",
-    });
+    console.log("This is the photo ===>", photo)
+    console.log("These are tags ======>", photo.tags.split(" ").join("").toLowerCase().split(","))
+    post(`/photos/${photo._id}/add-after`, {
+      description: photo.description,
+      tags: photo.tags.split(" ").join("").toLowerCase().split(","),
+    })
+      .then(() => {
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
 
   return (
     <div className="homeLanding">
       <div className="homeContainer">
-        <form>
-          <label>New Photo</label>
-          <input
-            onChange={(e) => handleFileUpload(e)}
-            type="file"
-            name="imageUrl"
-          ></input>
-          <label>Description</label>
-          <input
-            onChange={(e) => handleChange(e)}
-            type="text"
-            name="description"
-            value={photo.description}
-          ></input>
-          <label>Tags</label>
-          <input
-            onChange={(e) => handleChange(e)}
-            type="text"
-            name="tags"
-            value={photo.tags}
-          ></input>
+        <form onSubmit={handleSubmit}>
 
-          <button onClick={handleSubmit} type="button">
+          <label>
+            New Photo
+            <input onChange={handleFileUpload} type="file" name="imageUrl" />
+          </label>
+
+          <br/>
+
+          <label>
+            Description
+            <input
+              onChange={handleTextChange}
+              type="text"
+              name="description"
+              value={photo.description}
+            />
+          </label>
+
+          <br/>
+
+          <label>
+            Tags
+            <input
+              onChange={handleTextChange}
+              type="text"
+              name="tags"
+              value={photo.tags}
+            />
+          </label>
+          
+          <p>
+            When submitting photo tags, please seperate them by a comma and a space. Like so: "John Doe, Rocket Launch". Thank you.
+          </p>
+
+          <button disabled={disabled} type="sumbit">
             Submit Photo
           </button>
         </form>
