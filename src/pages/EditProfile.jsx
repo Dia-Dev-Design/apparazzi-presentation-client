@@ -2,14 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { post } from "../services/authService";
-import { get } from "../services/authService";
-import { uploadProfilePhoto } from "../services/uploadFileService";
 import { fileChange } from "../services/fileChange";
 
 const EditProfile = () => {
   const [updatedUser, setupdatedUser] = useState(null);
   const [disabled, setDisabled] = useState(false)
-
 
   const { user, storeToken, authenticateUser } = useContext(AuthContext)
  

@@ -9,7 +9,6 @@ import { MapContainer } from "react-leaflet";
 import { TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
-import { convertGPS } from "../services/convertGPS";
 import TheseTags from "./TheseTags";
 
 import tagIcon from '../assets/AppStar.png'
@@ -67,8 +66,8 @@ const AllTags = ({ children, allTags }) => {
     
               {photos.map((spot) => {
                 const point = [
-                  convertGPS(spot.latitude),
-                  convertGPS(spot.longitude),
+                  spot.latitude,
+                  spot.longitude
                 ];
     
                 return (

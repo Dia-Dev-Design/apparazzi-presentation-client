@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { uploadNewPhoto } from "../services/uploadFileService";
 import { post } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { newPhoto } from "../services/fileChange";
+import { convertGPS } from "../services/convertGPS";
+
+import { returnMapTime } from "../services/time";
 
 const SubmitPhoto = () => {
   const [photo, setPhoto] = useState({
@@ -21,25 +23,62 @@ const SubmitPhoto = () => {
   };
 
   const handleFileUpload = (e) => {
+
     setDisabled(true);
 
     newPhoto(e)
       .then((response) => {
+        console.log("this is the line 28 response ======>", response.data)
         setPhoto({...response.data});
       })
       .catch((err) => console.log("Error while uploading the file: ", err))
       .finally(() => {
+        if (!photo.longitude || photo.latitude) {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                setPhoto((prev) =>({
+                  ...prev,
+                  ["latitude"]: position.coords.latitude,
+                  ["longitude"]: position.coords.longitude,
+                }));
+              },
+              (error) => {
+                console.error('Error getting location:', error);
+              }
+            );
+          } else {
+            console.error('Geolocation is not supported by this browser.');
+          }
+        }
+        console.log("Line 53 ===========>", photo.photographedDate, returnMapTime())
+        if(!photo.photographedDate) {
+          let time = returnMapTime()
+          console.log("time======>", time)
+          setPhoto((prev) => ({...prev, ["photographedDate"]: time}))
+        }
+        if(!isNaN(photo.latitude) || !isNaN(photo.longitude)) {
+          setPhoto((prev) => ({
+            ...prev, 
+            ["latitude"]: convertGPS(photo.latitude),
+            ["longitude"]: convertGPS(photo.longitude)
+          }))
+        }
         setDisabled(false);
       });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("This is the photo ===>", photo)
+    console.log("This is the photo 73 73 73 ===>", photo)
     console.log("These are tags ======>", photo.tags.split(" ").join("").toLowerCase().split(","))
+
     post(`/photos/${photo._id}/add-after`, {
       description: photo.description,
       tags: photo.tags.split(" ").join("").toLowerCase().split(","),
+      latitude: photo.latitude,
+      longitude: photo.longitude,
+      photographedDate: photo.photographedDate
     })
       .then(() => {
         navigate("/profile");

@@ -9,7 +9,7 @@ import { MapContainer, useMap } from "react-leaflet";
 import { TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
-import { convertGPS } from "../services/convertGPS";
+
 import TheseTags from "./TheseTags";
 
 import tagIcon from '../assets/AppStar.png'
@@ -71,7 +71,7 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
         const points = []
         photos.forEach((spot, index) => {
             // console.log(index,spot);
-            points.push([convertGPS(spot.latitude),convertGPS(spot.longitude)]);
+            points.push([spot.latitude, spot.longitude]);
         })
         setPoints(points)
     }
@@ -106,7 +106,7 @@ useEffect(() => {
             className="slider-input"
             type="range"
             min="0"
-            name= "PhotoLocationTimeSlider"
+            name="PhotoLocationTimeSlider"
             max={`${photos.length-1}`}
             value={photoIndex}
             onChange={handleSliderChange}
