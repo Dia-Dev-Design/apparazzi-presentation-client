@@ -333,13 +333,15 @@ body {
 .slider-container{
   display: flex;
   justify-content: center;
+
+
   /* flex-direction: column; */
 }
 
 .slider-container .slider-label-input-container{
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 40%;
   text-align: center;
   /* margin-left: 20vw; */
 }
@@ -347,6 +349,10 @@ body {
 .slider-label-input-container{
   margin: 0 3vw 0 3vw;
 }
+/* 
+.slider-input {
+  width: 80%;
+} */
 
 .searchInfo {
   display: flex;

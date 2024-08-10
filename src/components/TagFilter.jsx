@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -10,10 +9,15 @@ import { TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+
 import TheseTags from "./TheseTags";
 
-import tagIcon from '../assets/AppStar.png'
-
+import tagIcon from "../assets/AppStar.png";
 
 const TagFilter = ({ children, allTags, setAllTags }) => {
   let myIcon = L.icon({
@@ -23,9 +27,9 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
   });
 
   const [photos, setPhotos] = useState([]);
-  const [rawPhotos, setRawPhotos] = useState([])
-  const [photoIndex, setPhotoIndex] = useState(0)
-  const [points, setPoints] = useState([])
+  const [rawPhotos, setRawPhotos] = useState([]);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [points, setPoints] = useState([]);
   const [map, setMap] = useState({
     lat: 25.80051750601982,
     lng: -80.19831072619859,
@@ -37,15 +41,24 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
   function parseDate(s) {
     var b = s.split(/\D/);
 
-    return new Date(b[0],b[1]-1,b[2],b[3],b[4],b[5]).toLocaleString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'});
+    return new Date(b[0], b[1] - 1, b[2], b[3], b[4], b[5]).toLocaleString(
+      "en-US",
+      {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      }
+    );
   }
 
-  
   const fetchPhotos = () => {
     axios
       .get(baseUrl + `/photos/${params.id}/tag`)
       .then((res) => {
-        const {photos} = res.data
+        const { photos } = res.data;
         photos.sort((a, b) => {
           const regex = /(\d{4}):(\d{2}):(\d{2})/;
           const format = "$1-$2-$3";
@@ -55,66 +68,96 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
           );
         });
         setPhotos(photos);
-        setRawPhotos(res.data.photos)
+        setRawPhotos(res.data.photos);
       })
       .catch((err) => console.log(err));
   };
 
-  
-  
+  const handleLeftButton = () => {
+    if (photoIndex > 0) {
+      setPhotoIndex((prev) => prev - 1)
+    }
+  }
+
+  const handleRightButton = () => {
+    if (photoIndex < photos.length - 1) {
+      setPhotoIndex((prev) => prev + 1)
+    }
+  }
+
   const handleSliderChange = (e) => {
-      // console.log(+e.target.value);
-      setPhotoIndex(+e.target.value)
-    }
-    
-    const getPoints = (photos) => {
-        const points = []
-        photos.forEach((spot, index) => {
-            // console.log(index,spot);
-            points.push([spot.latitude, spot.longitude]);
-        })
-        setPoints(points)
-    }
-    
-    const ChangeView = ({ center, zoom }) => {
-        const map = useMap();
-        map.setView(center, zoom);
-    }
-useEffect(() => {
+    // console.log(+e.target.value);
+    setPhotoIndex(+e.target.value);
+  };
+
+  const getPoints = (photos) => {
+    const points = [];
+    photos.forEach((spot, index) => {
+      // console.log(index,spot);
+      points.push([spot.latitude, spot.longitude]);
+    });
+    setPoints(points);
+  };
+
+  const ChangeView = ({ center, zoom }) => {
+    const map = useMap();
+    map.setView(center, zoom);
+  };
+
+  useEffect(() => {
     fetchPhotos();
     window.scrollTo(0, 0);
-}, [allTags, params]);
+  }, [allTags, params]);
 
-useEffect(() => {
-  if(photos.length){
-    getPoints(photos)
-  }
-}, [allTags, photos])
+  useEffect(() => {
+    if (photos.length) {
+      getPoints(photos);
+    }
+  }, [allTags, photos]);
 
-useEffect(() => {
-    setAllTags((prev) => !prev)
-}, [params.id])
-
+  useEffect(() => {
+    setAllTags((prev) => !prev);
+  }, [params.id]);
 
   return (
     <div>
       {/* <p>This is TagDetails</p> */}
       <div className="slider-container">
-        <div className="slider-label-input-container">
-          <label htmlFor="PhotoLocationTimeSlider" className="slider-label">Photo Location Time Slider</label>
-          <input
-            className="slider-input"
-            type="range"
-            min="0"
-            name="PhotoLocationTimeSlider"
-            max={`${photos.length-1}`}
-            value={photoIndex}
-            onChange={handleSliderChange}
-          />
+        <div className="slider-label-inpt-container">
+          <label htmlFor="PhotoLocationTimeSlider" className="slider-label">
+            Photo Location Time Slider
+          </label>
+          <div>
+            <button style={{ marginTop: "-5%" }} onClick={handleLeftButton}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+              <span>&nbsp;&nbsp;</span>
+            </button>
+            <input
+              className="slider-input"
+              type="range"
+              min="0"
+              name="PhotoLocationTimeSlider"
+              max={`${photos.length - 1}`}
+              value={photoIndex}
+              onChange={handleSliderChange}
+            />
+            <button style={{ marginTop: "-5%" }} onClick={handleRightButton}>
+              <span>&nbsp;&nbsp;</span>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
         </div>
-        <div className="slider-filter-label-select-container">
-          <label htmlFor="PhotoLocationFilterSelector" className="slider-filter-label">Filter</label>
-          <select name="PhotoLocationFilterSelector" className="slider-filter-select">
+        <div style={{marginLeft: "5%"}} className="slider-filter-label-select-container">
+          <label
+            htmlFor="PhotoLocationFilterSelector"
+            className="slider-filter-label"
+          >
+            Filter
+          </label>
+          <select
+            name="PhotoLocationFilterSelector"
+            className="slider-filter-select"
+          >
             <option className="slider-filter-select-option"></option>
             <option className="slider-filter-select-option"></option>
             <option className="slider-filter-select-option"></option>
@@ -123,25 +166,23 @@ useEffect(() => {
         </div>
       </div>
 
-     
       <h2>#{params.id}</h2>
 
       {children}
 
       {photos.length ? (
-            <div>
-              <p className="description">
-                Spotted on {parseDate(rawPhotos[photoIndex].photographedDate)}
-              </p>
-              {
-                points.length && 
-                <p className="description">Spotted at: {points[photoIndex][0].toFixed(3)} latitude & {points[photoIndex][1].toFixed(3)} longitude</p>
-              }
-
-            </div>
-            )
-            : null
-            }
+        <div>
+          <p className="description">
+            Spotted on {parseDate(rawPhotos[photoIndex].photographedDate)}
+          </p>
+          {points.length && (
+            <p className="description">
+              Spotted at: {points[photoIndex][0].toFixed(3)} latitude &{" "}
+              {points[photoIndex][1].toFixed(3)} longitude
+            </p>
+          )}
+        </div>
+      ) : null}
 
       <div id="mapid">
         <MapContainer
@@ -156,29 +197,33 @@ useEffect(() => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-             {points[photoIndex] && photos[photoIndex] && 
-             <ChangeView center={points[photoIndex]} zoom={map.zoom} />}
+          {points[photoIndex] && photos[photoIndex] && (
+            <ChangeView center={points[photoIndex]} zoom={map.zoom} />
+          )}
 
-             {points[photoIndex] && photos[photoIndex] && 
-             <Marker icon={myIcon} position={points[photoIndex]} key={photos[photoIndex]["_id"]}>
-                  <Popup>
-                    <span>
-                      <TheseTags photo={photos[photoIndex]} />
-                    </span>
-                    {/* <br /> */}
-                    <span>
-                      <Link to={`/${photos[photoIndex]._id}/details`}>Details</Link>
-                    </span>
-                    {/* <br /> */}
-                    <img
-                      src={photos[photoIndex].imageUrl}
-                      alt="testimage"
-                      className="previewImage"
-                    />
-                  </Popup>
-                </Marker>}
-
-          
+          {points[photoIndex] && photos[photoIndex] && (
+            <Marker
+              icon={myIcon}
+              position={points[photoIndex]}
+              key={photos[photoIndex]["_id"]}
+            >
+              <Popup>
+                <span>
+                  <TheseTags photo={photos[photoIndex]} />
+                </span>
+                {/* <br /> */}
+                <span>
+                  <Link to={`/${photos[photoIndex]._id}/details`}>Details</Link>
+                </span>
+                {/* <br /> */}
+                <img
+                  src={photos[photoIndex].imageUrl}
+                  alt="testimage"
+                  className="previewImage"
+                />
+              </Popup>
+            </Marker>
+          )}
         </MapContainer>
       </div>
 
@@ -195,6 +240,6 @@ useEffect(() => {
       </div>
     </div>
   );
-}
+};
 
-export default TagFilter
+export default TagFilter;
