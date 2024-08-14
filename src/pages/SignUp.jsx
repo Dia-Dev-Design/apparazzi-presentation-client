@@ -38,7 +38,7 @@ const SignUp = () => {
         .then((results) => {
           storeToken(results.data.authToken)
           authenticateUser()
-          navigate('/')
+          navigate('/profile')
         })
         .catch((err) => {
           console.log("Something went wrong=====>", err.response.data.message);
@@ -57,9 +57,9 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <h1>APPARAZZI</h1>
           <br/>
-          <Username handleTextInput={handleTextInput} newUser={newUser} />
+          <Username handleTextInput={handleTextInput} user={newUser} />
           <Email handleTextInput={handleTextInput} newUser={newUser} />
-          <Password handleTextInput={handleTextInput} newUser={newUser} />
+          <Password handleTextInput={handleTextInput} user={newUser} />
           <ConfirmPassword setConfirmPassword={setConfirmPassword} />
           {/* <PhoneNumber setPhoneNumber={setPhoneNumber} /> */}
 

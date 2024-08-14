@@ -10,28 +10,37 @@ import { AuthContext } from "../context/auth.context";
 import { post } from "../services/authService";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [user, setUser] = useState({
+    username: "",
+    password: ""
+  })
+
+  const [errorMessage, setErrormessage] = useState('')
 
   const { storeToken, authenticateUser } = useContext(AuthContext)
 
   const navigate = useNavigate();
 
-  function submit(e) {
+  const handleTextInput = (e) => {
+
+    setUser((prev) => ({...prev, [e.target.name]: e.target.value}))
+
+  }
+
+  const submit = (e) => {
     e.preventDefault();
 
-    post("/auth/login", {
-      username: username,
-      password: password,
-    })
+    post("/auth/login", user)
       .then((results) => {
         console.log("These are the results!!! ====>", results.data)
         storeToken(results.data.authToken);
         authenticateUser()
-        navigate("/");
+        navigate("/profile");
       })
       .catch((err) => {
-        console.log("Something went wrong", err.message);
+        console.log("Something went wrong", err.response.data.message);
+        setErrormessage(err.response.data.message)
       });
   }
 
@@ -41,10 +50,11 @@ const Login = () => {
         <form onSubmit={submit}>
           <h1>APPARAZZI</h1>
           <br/>
-          <Username setUsername={setUsername} />
-          <Password setPassword={setPassword} />
+          <Username handleTextInput={handleTextInput} user={user} />
+          <Password handleTextInput={handleTextInput} user={user} />
           <button>Submit</button>
         </form>
+        {errorMessage && <p>{errorMessage}</p>}
       </div>
     </div>
   );
