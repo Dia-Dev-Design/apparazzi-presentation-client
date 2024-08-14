@@ -9,26 +9,32 @@ import { post } from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  let [username, setUsername] = useState("");
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
+
+  let [newUser, setNewUser] = useState({
+    username: "",
+    email: "",
+    password: ""
+  })
+
   let [confirmPassword, setConfirmPassword] = useState("");
   let [errormessage, setErrormessage] = useState("");
-  let [phoneNumber, setPhoneNumber] = useState("");
+  // let [phoneNumber, setPhoneNumber] = useState("");
 
   const { storeToken, authenticateUser } = useContext(AuthContext)
 
   const navigate = useNavigate();
 
+  const handleTextInput = (e) => {
+
+    setNewUser((prev) => ({...prev, [e.target.name]: e.target.value}))
+
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (password === confirmPassword) {
-      post("/auth/signup", {
-        username: username,
-        password: password,
-        email: email,
-      })
+    if (newUser.password === confirmPassword) {
+      post("/auth/signup", newUser)
         .then((results) => {
           storeToken(results.data.authToken)
           authenticateUser()
@@ -51,9 +57,9 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <h1>APPARAZZI</h1>
           <br/>
-          <Username setUsername={setUsername} />
-          <Email setEmail={setEmail} />
-          <Password setPassword={setPassword} />
+          <Username handleTextInput={handleTextInput} newUser={newUser} />
+          <Email handleTextInput={handleTextInput} newUser={newUser} />
+          <Password handleTextInput={handleTextInput} newUser={newUser} />
           <ConfirmPassword setConfirmPassword={setConfirmPassword} />
           {/* <PhoneNumber setPhoneNumber={setPhoneNumber} /> */}
 
@@ -63,7 +69,7 @@ const SignUp = () => {
 
           <p>Already have an account?<Link to="/login">Log In</Link></p>
 
-          <p>{errormessage}</p>
+          {errormessage && <p>{errormessage}</p>}
         </form>
       </div>
     </div>

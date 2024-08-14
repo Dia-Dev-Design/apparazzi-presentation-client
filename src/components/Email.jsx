@@ -1,13 +1,13 @@
 import React from "react";  
 
-const Email = (props) => {
+const Email = ({ handleTextInput, newUser }) => {
 
     return (
 
         <div>
             <label>Email</label>
             <br />
-            <input type="text" name='email' onChange={(e)=>props.setEmail(e.target.value)} value={props.email} placeholder="Example@email.com"/>
+            <input type="text" name='email' onChange={handleTextInput} value={newUser.email} placeholder="example@email.com"/>
         </div>
 
     )
