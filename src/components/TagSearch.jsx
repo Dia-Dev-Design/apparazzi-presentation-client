@@ -17,21 +17,47 @@ const TagSearch = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Search #</label>
-      <input    
-        className="searchBarInput"     
-        onChange={handleChange}
-        type="text"
-        name="search"
-        value={query}
-        placeholder="Who are you looking for?"
-      />
-      <button type="button" onClick={handleSubmit}>
-        Find Tag
-      </button>
-    </form>
+    <div className="searchInfo">
+      <div>
+      <p className="searchText">Search</p>
+      <form className="searchBar1" onSubmit={handleSubmit}>
+        <button className="searchBarButton">🔍</button>
+        <input
+          className="searchBarInput"
+          onChange={handleChange}
+          type="text"
+          name="search"
+          value={query}
+          placeholder="Who are you looking for?"
+        />
+      </form>
+      </div>
+    </div>
   );
 };
 
 export default TagSearch;
+
+// <div className="searchInfo">
+//   <div>
+//     <p className="searchText">Search</p>
+//     <form className="searchBar1">
+//       <button className="searchBarButton">🔍</button>
+//       <input
+//         className="searchBarInput"
+//         placeholder="Who are you looking for?"
+//       />
+//     </form>
+//   </div>
+
+//   {/* <div>
+//   <p className="searchText">Location</p>
+//   <form className="searchBar2">
+//     <button className="searchBarButton">🔍</button>
+//     <input className="searchBarInput" placeholder="City or zip code" />
+//   </form>
+// </div> */}
+// </div>;
+
+
+

@@ -43,9 +43,9 @@ const Navbar = () => {
           <Link to="/allPhotos" className="icon">
             All Photos
           </Link>
-          <Link to="/tags" className="icon">
+          {/* <Link to="/tags" className="icon">
             Tags
-          </Link>
+          </Link> */}
           <Link to="/submit-photo" className="icon">
             Submit (fiximage)
             <img className="navbarIcon" src={SubmitIcon} alt="SubmitIcon" />
