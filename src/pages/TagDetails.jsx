@@ -1,17 +1,17 @@
 import AllTags from "../components/AllTags";
 import TagFilter from "../components/TagFilter";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const TagDetails = () => {
   const [allTags, setAllTags] = useState(true);
 
-  const setSeeFilter = () => {
-    setAllTags(false);
-  };
+  const setSeeFilter = useCallback(() => {
+    setAllTags(prev => !prev);
+  }, [setAllTags]);
 
-  const setSeeAll = () => {
-    setAllTags(true);
-  };
+  const setSeeAll = useCallback(() => {
+    setAllTags((prev => !prev));
+  }, [setAllTags]);
 
   return (
     <>
@@ -29,3 +29,14 @@ const TagDetails = () => {
 };
 
 export default TagDetails;
+
+// const handleComplete = useCallback(
+//   (id) => {
+//     setTodos((prevTodos) =>
+//       prevTodos.map((todo) =>
+//         todo.id === id ? { ...todo, completed: !todo.completed } : todo
+//       )
+//     )
+//   },
+//   [setTodos]
+// )
