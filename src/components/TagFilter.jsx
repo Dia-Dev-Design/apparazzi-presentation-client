@@ -115,9 +115,9 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
     }
   }, [allTags, photos]);
 
-  useEffect(() => {
-    setAllTags((prev) => !prev);
-  }, [params.id]);
+  // useEffect(() => {
+  //   setAllTags((prev) => !prev);
+  // }, [params.id]);
 
   return (
     <div>
