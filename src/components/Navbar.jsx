@@ -47,15 +47,15 @@ const Navbar = () => {
             Tags
           </Link> */}
           <Link to="/submit-photo" className="icon">
-            Submit (fiximage)
+            {/* Submit (fiximage) */}
             <img className="navbarIcon" src={SubmitIcon} alt="SubmitIcon" />
           </Link>
           <Link to="/profile" className="icon">
-            Profile (fiximage)
+            {/* Profile (fiximage) */}
             <img className="navbarIcon1" src={UserIcon} alt="UserIcon"  />
           </Link>
           <Link to="/notifications" className="icon">
-            Notifications (fiximage)
+            {/* Notifications (fiximage) */}
             <img
               className="navbarIcon2"
               src={NotificationIcon}
@@ -71,12 +71,12 @@ const Navbar = () => {
           <Link to="/" className="icon">
             Home
           </Link>
-          <Link to="/inventory" className="icon">
+          {/* <Link to="/inventory" className="icon">
             Inventory
           </Link>
           <Link to="/about" className="icon">
             About
-          </Link>
+          </Link> */}
           <button className="navButton">
             <Link to="/login">Log In</Link>
           </button>
