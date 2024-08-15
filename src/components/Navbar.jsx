@@ -22,7 +22,7 @@ const Navbar = () => {
     <header className="nav-wrapper">
       <div className="navIconContainer">
         <Link to="/" className="navIconImage">
-          <img className="navIcon" src={AppIcon} alt="appIcon" />
+          <img className="navIcon" src={AppIcon} alt="appIcon"  />
         </Link>
         <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           &#9776;
@@ -40,28 +40,28 @@ const Navbar = () => {
           {/* <Link to="/about" className="icon">
             About
           </Link> */}
-          <Link to="/allPhotos" className="icon">
+          <Link to="/allPhotos" className="icon" style={{width: "fit-content"}}>
             All Photos
           </Link>
           {/* <Link to="/tags" className="icon">
             Tags
           </Link> */}
-          <Link to="/submit-photo" className="icon">
+          <Link to="/submit-photo" className="icon sumbitA">
             {/* Submit (fiximage) */}
-            <img className="navbarIcon" src={SubmitIcon} alt="SubmitIcon" />
+            <img className="submitImage" src={SubmitIcon} alt="SubmitIcon" />
           </Link>
           <Link to="/profile" className="icon">
             {/* Profile (fiximage) */}
-            <img className="navbarIcon1" src={UserIcon} alt="UserIcon"  />
+            <img className="profileNav" src={UserIcon} alt="UserIcon"  />
           </Link>
-          <Link to="/notifications" className="icon">
-            {/* Notifications (fiximage) */}
+          {/* <Link to="/notifications" className="icon">
+            Notifications (fiximage)
             <img
               className="navbarIcon2"
               src={NotificationIcon}
               alt="NotificationIcon"
             />
-          </Link>
+          </Link> */}
           <button onClick={logOutUser} className="navButton">
             Logout
           </button>

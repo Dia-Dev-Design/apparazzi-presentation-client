@@ -85,7 +85,7 @@ body {
   width: 60%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   transition: max-height 0.3s ease;
 }
@@ -110,10 +110,12 @@ body {
 
 
 .icon {
-  height: 100%;
+  width: 20%;
+  /* height: 100%; */
+  /* width: auto; */
   cursor: pointer;
-  margin: 0 10px;
-  display: inline-block;
+  margin: 0 ;
+  /* display: inline-block; */
   text-decoration: none; /* New */
 }
 
@@ -223,21 +225,37 @@ body {
 }
 
 .navIcon {
-  height: 90%;
+  height: 45px;
   width: 150%;
   margin-top: 5%;
+  align-self: center;
 }
 
 .navbarIcon {
-  width: 20%;
   height: 30%;
-  margin-top: 5%;
+  width: 20%;
+  margin: 0
+  /* margin-top: 5%; */
 }
-.navbarIcon1 {
-  width: 50%;
-  height: 60%;
-  margin-top: 5%;
+
+.sumbitA {
+  display: flex;
+  justify-content: center;
 }
+
+.submitImage {
+  /* height: 2%; */
+  width: 40%;
+  margin: 0
+}
+
+.profileNav {
+
+  align-self: center;
+  width: 40%
+
+}
+
 .navbarIcon2 {
   width: 60%;
   height: 70%;
@@ -254,8 +272,8 @@ body {
 
 
 .navIconContainer {
-  height: 40px;
-  width: 60px;
+  /* height: 60%; */
+  /* width: 60px; */
   display: flex;
   justify-content: flex-start;  
 }
@@ -465,8 +483,9 @@ body {
   }
 
   .nav-items {
-    display: none;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     position: absolute;
     top: 50px;
     left: 0;
