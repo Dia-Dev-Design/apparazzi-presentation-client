@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { baseUrl } from "../services/baseUrl";
+import { Link } from "react-router-dom";
+import { get } from "../services/authService";
 import Photo from "./Photo";
 import L from "leaflet";
 import { MapContainer, useMap } from "react-leaflet";
 import { TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +17,7 @@ import TheseTags from "./TheseTags";
 
 import tagIcon from "../assets/AppStar.png";
 
-const TagFilter = ({ children, allTags, setAllTags }) => {
+const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
   let myIcon = L.icon({
     iconUrl: tagIcon,
     iconSize: [36, 36],
@@ -36,9 +34,8 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
     zoom: 13,
   });
 
-  const params = useParams();
 
-  function parseDate(s) {
+  const parseDate = (s) => {
     var b = s.split(/\D/);
 
     return new Date(b[0], b[1] - 1, b[2], b[3], b[4], b[5]).toLocaleString(
@@ -55,8 +52,7 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
   }
 
   const fetchPhotos = () => {
-    axios
-      .get(baseUrl + `/photos/${params.id}/tag`)
+    get(`/photos/${paramsId}/tag`)
       .then((res) => {
         const { photos } = res.data;
         photos.sort((a, b) => {
@@ -86,14 +82,12 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
   }
 
   const handleSliderChange = (e) => {
-    // console.log(+e.target.value);
     setPhotoIndex(+e.target.value);
   };
 
   const getPoints = (photos) => {
     const points = [];
     photos.forEach((spot, index) => {
-      // console.log(index,spot);
       points.push([spot.latitude, spot.longitude]);
     });
     setPoints(points);
@@ -107,17 +101,14 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
   useEffect(() => {
     fetchPhotos();
     window.scrollTo(0, 0);
-  }, [allTags, params]);
+    setAllTags((prev) => !prev)
+  }, [allTags, paramsId]);
 
   useEffect(() => {
     if (photos.length) {
       getPoints(photos);
     }
   }, [allTags, photos]);
-
-  // useEffect(() => {
-  //   setAllTags((prev) => !prev);
-  // }, [params.id]);
 
   return (
     <div>
@@ -166,7 +157,7 @@ const TagFilter = ({ children, allTags, setAllTags }) => {
         </div>
       </div>
 
-      <h2>#{params.id}</h2>
+      <h2>#{paramsId}</h2>
 
       {children}
 

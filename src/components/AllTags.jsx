@@ -1,19 +1,20 @@
 
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { baseUrl } from "../services/baseUrl";
+import { Link } from "react-router-dom";
+
+import { get } from "../services/authService";
+
 import Photo from "./Photo";
 import L from "leaflet";
 import { MapContainer } from "react-leaflet";
 import { TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Link } from "react-router-dom";
+
 import TheseTags from "./TheseTags";
 
 import tagIcon from '../assets/AppStar.png'
 
-const AllTags = ({ children, allTags }) => {
+const AllTags = ({ children, allTags, paramsId }) => {
     let myIcon = L.icon({
         iconUrl: tagIcon,
         iconSize: [36, 36],
@@ -27,11 +28,10 @@ const AllTags = ({ children, allTags }) => {
         zoom: 13,
       });
     
-      const params = useParams();
+
     
       const fetchPhotos = () => {
-        axios
-          .get(baseUrl + `/photos/${params.id}/tag`)
+        get(`/photos/${paramsId}/tag`)
           .then((res) => {
             setPhotos(res.data.photos);
           })
@@ -41,13 +41,13 @@ const AllTags = ({ children, allTags }) => {
       useEffect(() => {
         fetchPhotos();
         window.scrollTo(0, 0);
-      }, [allTags, params]);
+      }, [allTags, paramsId]);
     
       return (
         <div>
           {/* <p>This is TagDetails</p> */}
     
-          <h2>#{params.id}</h2>
+          <h2>#{paramsId}</h2>
 
           {children}
     
