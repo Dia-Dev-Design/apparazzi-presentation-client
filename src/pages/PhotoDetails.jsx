@@ -170,7 +170,7 @@ const PhotoDetails = () => {
                       </span>
                       <br />
                       <span>
-                        <Link to={`/${photo._id}/details`}>Details</Link>
+                        <Link to={`/${photo._id}/details`} onClick={() => window.scrollTo(0,0)}>Details</Link>
                       </span>
                       <br />
                       <img
