@@ -27,9 +27,7 @@ const AllTags = ({ children, allTags, paramsId }) => {
         lng: -80.19831072619859,
         zoom: 13,
       });
-    
-
-    
+       
       const fetchPhotos = () => {
         get(`/photos/${paramsId}/tag`)
           .then((res) => {

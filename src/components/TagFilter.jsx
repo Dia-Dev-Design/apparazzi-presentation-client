@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { get } from "../services/authService";
 import Photo from "./Photo";
 import L from "leaflet";
@@ -34,6 +34,7 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
     zoom: 13,
   });
 
+  const navigate = useNavigate()
 
   const parseDate = (s) => {
     var b = s.split(/\D/);
@@ -49,7 +50,7 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
         minute: "numeric",
       }
     );
-  }
+  };
 
   const fetchPhotos = () => {
     get(`/photos/${paramsId}/tag`)
@@ -71,15 +72,15 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
 
   const handleLeftButton = () => {
     if (photoIndex > 0) {
-      setPhotoIndex((prev) => prev - 1)
+      setPhotoIndex((prev) => prev - 1);
     }
-  }
+  };
 
   const handleRightButton = () => {
     if (photoIndex < photos.length - 1) {
-      setPhotoIndex((prev) => prev + 1)
+      setPhotoIndex((prev) => prev + 1);
     }
-  }
+  };
 
   const handleSliderChange = (e) => {
     setPhotoIndex(+e.target.value);
@@ -99,16 +100,23 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
   };
 
   useEffect(() => {
+    console.log("hello")
     fetchPhotos();
     window.scrollTo(0, 0);
-    setAllTags((prev) => !prev)
-  }, [allTags, paramsId]);
-
+  }, [allTags]);
+  
   useEffect(() => {
     if (photos.length) {
+      console.log("hello")
       getPoints(photos);
     }
   }, [allTags, photos]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    navigate(`/${paramsId}/tag`)
+    setAllTags((prev) => !prev)
+  }, [paramsId])
 
   return (
     <div>
@@ -138,7 +146,10 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
             </button>
           </div>
         </div>
-        <div style={{marginLeft: "5%"}} className="slider-filter-label-select-container">
+        <div
+          style={{ marginLeft: "5%" }}
+          className="slider-filter-label-select-container"
+        >
           <label
             htmlFor="PhotoLocationFilterSelector"
             className="slider-filter-label"
@@ -186,6 +197,7 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
           <TileLayer
             attribution='&copy <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          
           />
 
           {points[photoIndex] && photos[photoIndex] && (
@@ -194,6 +206,7 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
 
           {points[photoIndex] && photos[photoIndex] && (
             <Marker
+              
               icon={myIcon}
               position={points[photoIndex]}
               key={photos[photoIndex]["_id"]}
