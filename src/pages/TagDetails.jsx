@@ -1,6 +1,6 @@
 import AllTags from "../components/AllTags";
 import TagFilter from "../components/TagFilter";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const TagDetails = () => {
@@ -15,6 +15,10 @@ const TagDetails = () => {
   const setSeeAll = useCallback(() => {
     setAllTags((prev => !prev));
   }, [setAllTags]);
+
+  useEffect(() => {
+    setAllTags(true)
+  }, [id])
 
   return (
     <>

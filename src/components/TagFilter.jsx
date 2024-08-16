@@ -115,7 +115,12 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     navigate(`/${paramsId}/tag`)
-    setAllTags((prev) => !prev)
+    // if (paramsId) {
+    //   setAllTags((prev) => !prev)
+    // }
+    // return () => {
+    //   setAllTags((prev) => !prev) 
+    // }
   }, [paramsId])
 
   return (

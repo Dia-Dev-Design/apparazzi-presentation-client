@@ -1,13 +1,13 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import { get } from "../services/authService";
 
 import Photo from "./Photo";
 import L from "leaflet";
-import { MapContainer } from "react-leaflet";
-import { TileLayer, Marker, Popup } from "react-leaflet";
+import { } from "react-leaflet";
+import { useMap, MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 import TheseTags from "./TheseTags";
@@ -27,6 +27,8 @@ const AllTags = ({ children, allTags, paramsId }) => {
         lng: -80.19831072619859,
         zoom: 13,
       });
+
+      const popUpRef = useRef(null)
        
       const fetchPhotos = () => {
         get(`/photos/${paramsId}/tag`)
@@ -39,6 +41,8 @@ const AllTags = ({ children, allTags, paramsId }) => {
       useEffect(() => {
         fetchPhotos();
         window.scrollTo(0, 0);
+
+        // map.closePopup(popUpRef)
       }, [allTags, paramsId]);
     
       return (
@@ -70,8 +74,8 @@ const AllTags = ({ children, allTags, paramsId }) => {
     
                 return (
                   point[0] && (
-                    <Marker icon={myIcon} position={point} key={spot["_id"]}>
-                      <Popup>
+                    <Marker icon={myIcon} position={point} key={spot["_id"]} >
+                      <Popup ref={r => r = popUpRef}>
                         <span>
                           <TheseTags photo={spot} />
                         </span>
