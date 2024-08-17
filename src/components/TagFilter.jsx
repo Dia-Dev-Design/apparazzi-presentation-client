@@ -151,7 +151,9 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
             </button>
           </div>
         </div>
-        <div
+
+        
+        {/* <div
           style={{ marginLeft: "5%" }}
           className="slider-filter-label-select-container"
         >
@@ -170,7 +172,8 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
             <option className="slider-filter-select-option"></option>
             <option className="slider-filter-select-option"></option>
           </select>
-        </div>
+        </div> */}
+
       </div>
 
       <h2>#{paramsId}</h2>
