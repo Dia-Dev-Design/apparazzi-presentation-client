@@ -226,7 +226,7 @@ body {
 
 .navIcon {
   height: 45px;
-  width: 150%;
+  width: 45px;
   margin-top: 5%;
   align-self: center;
 }
@@ -274,8 +274,9 @@ body {
 .navIconContainer {
   /* height: 60%; */
   /* width: 60px; */
+  width: 100%;
   display: flex;
-  justify-content: flex-start;  
+  justify-content: space-between;  
 }
 .navIconLink {
   align-items: right;
@@ -289,7 +290,8 @@ body {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  width: 25%;
+  width: -moz-fit-content;
+  width: fit-content;
   align-items: center;
 }
 .submitButton {
@@ -483,7 +485,7 @@ body {
   }
 
   .nav-items {
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: space-evenly;
     position: absolute;
