@@ -7,19 +7,21 @@ import { convertGPS } from "../services/convertGPS";
 import { returnMapTime } from "../services/time";
 
 const SubmitPhotoContainer = styled.div`
-  max-width: 800px;
+  max-width: 750px;
   margin: 40px auto;
   padding: 15px;
   background-color: white;
-  border: 1px solid lightgrey;
+  border: 1px solid grey;
   border-radius: 10px;
   display: flex;
+  flex-direction: row;
 `;
 
 const Form = styled.form`
   flex: 1;
   display: flex;
   flex-direction: column;
+   align-items: center;
 `;
 
 const Label = styled.label`
@@ -48,8 +50,9 @@ const ErrorMessage = styled.p`
 `;
 
 const ImagePreviewContainer = styled.div`
-  margin-left: 20px;
-  width: 200px;
+  margin-left: auto;
+  width: 350px;
+  padding: 10px;
 `;
 
 const ImagePreview = styled.img`
