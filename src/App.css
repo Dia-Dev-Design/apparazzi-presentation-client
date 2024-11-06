@@ -192,13 +192,7 @@ body {
   width: 30vw;
 }
 
-.profilePhoto {
-  height: 300px;
-  width: 300px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-}
+
 
 .homeLanding {
   height: 90vh;
@@ -225,7 +219,8 @@ body {
 }
 
 .navIcon {
-  height: 45px;
+  height: 55px;
+  border-radius: 50%;
   width: 150%;
   margin-top: 5%;
   align-self: center;

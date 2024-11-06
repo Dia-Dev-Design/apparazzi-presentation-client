@@ -3,9 +3,15 @@ import TheseTags from "./TheseTags";
 import { Link } from "react-router-dom";
 import { DateTime } from "luxon"
 import { returnMapTime } from "../services/time";
-
+import styled from "styled-components";
+const Image = styled.img`
+  border-radius: 7px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 const Photo = (props) => {
-
+  
     function parseDate(s) {
         var b = s.split(/\D/);
 
