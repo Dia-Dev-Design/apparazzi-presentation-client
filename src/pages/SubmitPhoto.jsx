@@ -7,59 +7,84 @@ import { convertGPS } from "../services/convertGPS";
 import { returnMapTime } from "../services/time";
 
 const SubmitPhotoContainer = styled.div`
-  max-width: 750px;
+  max-width: 900px;
   margin: 40px auto;
-  padding: 15px;
-  background-color: white;
-  border: 1px solid grey;
-  border-radius: 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
   display: flex;
   flex-direction: row;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+
+  @media (max-width: 768px) {
+    margin-top: 15%;
+  }
 `;
 
 const Form = styled.form`
   flex: 1;
   display: flex;
   flex-direction: column;
-   align-items: center;
+  align-items: center;
 `;
 
 const Label = styled.label`
-  margin-bottom: 5px;
+  font-size: 1rem;
+  color: black;
 `;
 
 const Input = styled.input`
+  width: 100%;
   padding: 5px;
-  margin-bottom: 20px;
-  border: 1px solid black;
-  border-radius: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease;
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
-  background-color: black;
+  width: 140px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #000;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #333;
+  }
 `;
 
 const ErrorMessage = styled.p`
   color: red;
-  margin-top: 10px;
+  margin-top: 8px;
+  font-size: 0.9rem;
 `;
 
 const ImagePreviewContainer = styled.div`
-  margin-left: auto;
-  width: 350px;
-  padding: 10px;
+  margin-left: 15px;
+  width: 330px;
+  padding: 12px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const ImagePreview = styled.img`
   max-width: 100%;
   height: auto;
   border-radius: 10px;
+  border: 2px solid #e0e0e0;
 `;
+
+
 
 const SubmitPhoto = () => {
   const [photo, setPhoto] = useState({
@@ -205,8 +230,9 @@ return (
 
       <p>
         When submitting photo tags, please seperate them by a comma and a
-        space. Like so: "John Doe, Rocket Launch". Thank you.
+        space.
       </p>
+      <p> Like so: "John Doe, Rocket Launch". Thank you.</p>
 
       <Button disabled={disabled} type="submit">
         Submit Photo
