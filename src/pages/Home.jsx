@@ -2,10 +2,12 @@ import AppIcon from "../assets/ApparazziIcon_v2.jpg";
 
 import TagSearch from "../components/TagSearch";
 
+import './Home.css'
+
 const Home = () => {
   return (
-    <div className="homeLanding">
-      <div className="homeContainer">
+    <div className="home-landing">
+      <div className="home-container">
       
         <TagSearch />
 
@@ -20,9 +22,9 @@ const Home = () => {
 
         <br />
 
-        <h1 className="homeText">Welcome to</h1>
-        <img className="homeIcon" src={AppIcon} alt="apparazziIcon" />
-        <h2 className="homeText">Where anyone can be a Paparazzi!</h2>
+        <h1 className="home-text">Welcome to</h1>
+        <img className="home-icon" src={AppIcon} alt="apparazziIcon" />
+        <h2 className="home-text">Where anyone can be a Paparazzi!</h2>
       </div>
     </div>
   );

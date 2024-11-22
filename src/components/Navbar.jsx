@@ -7,54 +7,59 @@ import { AuthContext } from "../context/auth.context";
 import AppIcon from "../assets/ApparazziIconSmall.jpg";
 import UserIcon from "../assets/user.png";
 import SubmitIcon from "../assets/add_image.png";
-import NotificationIcon from "../assets/notification.png";
+// import NotificationIcon from "../assets/notification.png";
+
+import "./Navbar.css";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    const [menuOpen, setMenuOpen] = useState(false);
+  const { logOutUser } = useContext(AuthContext);
 
-    const { logOutUser } = useContext(AuthContext)
-
-    let token = localStorage.getItem("authToken");
+  let token = localStorage.getItem("authToken");
 
   return (
     <div className="navbar">
-    <header className="nav-wrapper">
-      <div className="navIconContainer">
-        <Link to="/" className="navIconImage">
-          <img className="navIcon" src={AppIcon} alt="appIcon"  />
-        </Link>
-        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          &#9776;
-        </div>
-      </div>
-
-      {token ? (
-        <nav className={`nav-items ${menuOpen ? "show" : ""}`}>
-          <Link to="/" className="icon">
-            Home
+      <header className="nav-wrapper">
+        <div className="nav-icon-container">
+          <Link to="/" className="nav-icon-image">
+            <img className="nav-icon" src={AppIcon} alt="appIcon" />
           </Link>
-          {/* <Link to="/leaderboard" className="icon">
+          <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+            &#9776;
+          </div>
+        </div>
+
+        {token ? (
+          <nav className={`nav-items ${menuOpen ? "show" : ""}`}>
+            <Link to="/" className="icon">
+              Home
+            </Link>
+            {/* <Link to="/leaderboard" className="icon">
             LeaderBoard
           </Link> */}
-          {/* <Link to="/about" className="icon">
+            {/* <Link to="/about" className="icon">
             About
           </Link> */}
-          <Link to="/allPhotos" className="icon" style={{width: "fit-content"}}>
-            All Photos
-          </Link>
-          {/* <Link to="/tags" className="icon">
+            <Link
+              to="/allPhotos"
+              className="icon"
+              style={{ width: "fit-content" }}
+            >
+              All Photos
+            </Link>
+            {/* <Link to="/tags" className="icon">
             Tags
           </Link> */}
-          <Link to="/submit-photo" className="icon sumbitA">
-            {/* Submit (fiximage) */}
-            <img className="submitImage" src={SubmitIcon} alt="SubmitIcon" />
-          </Link>
-          <Link to="/profile" className="icon">
-            {/* Profile (fiximage) */}
-            <img className="profileNav" src={UserIcon} alt="UserIcon"  />
-          </Link>
-          {/* <Link to="/notifications" className="icon">
+            <Link to="/submit-photo" className="icon sumbitA">
+              {/* Submit (fiximage) */}
+              <img className="submitImage" src={SubmitIcon} alt="SubmitIcon" />
+            </Link>
+            <Link to="/profile" className="icon">
+              {/* Profile (fiximage) */}
+              <img className="profileNav" src={UserIcon} alt="UserIcon" />
+            </Link>
+            {/* <Link to="/notifications" className="icon">
             Notifications (fiximage)
             <img
               className="navbarIcon2"
@@ -62,32 +67,32 @@ const Navbar = () => {
               alt="NotificationIcon"
             />
           </Link> */}
-          <button onClick={logOutUser} className="navButton">
-            Logout
-          </button>
-        </nav>
-      ) : (
-        <nav className={`nav-items ${menuOpen ? "show" : ""}`}>
-          <Link to="/" className="icon">
-            Home
-          </Link>
-          {/* <Link to="/inventory" className="icon">
+            <button onClick={logOutUser} className="navButton">
+              Logout
+            </button>
+          </nav>
+        ) : (
+          <nav className={`nav-items ${menuOpen ? "show" : ""}`}>
+            <Link to="/" className="icon">
+              Home
+            </Link>
+            {/* <Link to="/inventory" className="icon">
             Inventory
           </Link>
           <Link to="/about" className="icon">
             About
           </Link> */}
-          <button className="navButton">
-            <Link to="/login">Log In</Link>
-          </button>
-          <button className="navButton">
-            <Link to="/signup">Sign Up</Link>
-          </button>
-        </nav>
-      )}
-    </header>
-  </div>
-  )
-}
+            <button className="navButton">
+              <Link to="/login">Log In</Link>
+            </button>
+            <button className="navButton">
+              <Link to="/signup">Sign Up</Link>
+            </button>
+          </nav>
+        )}
+      </header>
+    </div>
+  );
+};
 
-export default Navbar
+export default Navbar;

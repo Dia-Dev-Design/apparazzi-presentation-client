@@ -1,0 +1,34 @@
+.scroll-image {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+}
+
+.description {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.post-time {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+}
+
+.image-group {
+    width: 90%;
+    margin: auto;
+}
+
+
+@media screen and (max-width: 769px) {
+
+    .scroll-image {
+        max-width: 100%;
+    }
+
+    .image-group {
+        width: 100%;
+    }
+
+}

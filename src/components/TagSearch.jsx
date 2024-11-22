@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import './TagSearch.css'
+
 const TagSearch = () => {
   const [query, setQuery] = useState("");
 
@@ -17,13 +19,13 @@ const TagSearch = () => {
   };
 
   return (
-    <div className="searchInfo">
+    <div className="search-info">
       <div>
-      <p className="searchText">Search</p>
-      <form className="searchBar1" onSubmit={handleSubmit}>
-        <button className="searchBarButton">🔍</button>
+      <p className="search-text">Search</p>
+      <form className="search-bar-1" onSubmit={handleSubmit}>
+        <button className="search-bar-button">🔍</button>
         <input
-          className="searchBarInput"
+          className="search-bar-input"
           onChange={handleChange}
           type="text"
           name="search"
@@ -38,26 +40,6 @@ const TagSearch = () => {
 
 export default TagSearch;
 
-// <div className="searchInfo">
-//   <div>
-//     <p className="searchText">Search</p>
-//     <form className="searchBar1">
-//       <button className="searchBarButton">🔍</button>
-//       <input
-//         className="searchBarInput"
-//         placeholder="Who are you looking for?"
-//       />
-//     </form>
-//   </div>
-
-//   {/* <div>
-//   <p className="searchText">Location</p>
-//   <form className="searchBar2">
-//     <button className="searchBarButton">🔍</button>
-//     <input className="searchBarInput" placeholder="City or zip code" />
-//   </form>
-// </div> */}
-// </div>;
 
 
 

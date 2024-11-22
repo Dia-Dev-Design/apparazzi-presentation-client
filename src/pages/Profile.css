@@ -1,0 +1,21 @@
+.columnated {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    -ms-grid-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    -ms-grid-rows: minmax(100px, auto);
+}
+
+.image-group {
+    width: 90%;
+    margin: auto;
+}
+
+@media screen and (max-width: 769px) {
+
+    .image-group {
+        width: 100%;
+      }
+
+}

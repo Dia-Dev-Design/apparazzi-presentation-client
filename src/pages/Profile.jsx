@@ -5,6 +5,8 @@ import { AuthContext } from "../context/auth.context";
 import Photo from "../components/Photo";
 import User from "../components/User";
 
+import './Profile.css'
+
 const Profile = () => {
   
   const [photos, setPhotos] = useState([])
@@ -27,7 +29,9 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="theProfile">
+    <div 
+    className="the-profile"
+    >
       <h2>Your Profile</h2>
 
       {user && <User user={user} />}
@@ -43,7 +47,7 @@ const Profile = () => {
                 {photos.map((photo) => {
                 return (
                   <div className="direction" key={photo._id}>
-                    <Photo photo={photo} className={"imageGroup"} />
+                    <Photo photo={photo} className="image-group" />
                   </div>
                 );
               })}

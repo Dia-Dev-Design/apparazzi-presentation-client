@@ -9,6 +9,8 @@ import { AuthContext } from "../context/auth.context";
 
 import { post } from "../services/authService";
 
+import './Login.css'
+
 const Login = () => {
 
   const [user, setUser] = useState({
@@ -45,8 +47,8 @@ const Login = () => {
   }
 
   return (
-    <div className="homeLanding">
-      <div className="homeContainer">
+    <div className="home-landing">
+      <div className="home-container">
         <form onSubmit={submit}>
           <h1>APPARAZZI</h1>
           <br/>

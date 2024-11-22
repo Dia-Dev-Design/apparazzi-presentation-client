@@ -2,6 +2,9 @@ import React from "react";
 import TheseTags from "./TheseTags";
 import { Link } from "react-router-dom";
 import { DateTime } from "luxon"
+
+import './Photo.css'
+
 import { returnMapTime } from "../services/time";
 
 const Photo = (props) => {

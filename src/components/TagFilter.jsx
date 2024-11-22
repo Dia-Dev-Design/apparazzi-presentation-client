@@ -1,19 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { get } from "../services/authService";
-import Photo from "./Photo";
+
 import L from "leaflet";
 import { MapContainer, useMap } from "react-leaflet";
 import { TileLayer, Marker, Popup } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, } from "@fortawesome/free-solid-svg-icons";
 
+import Photo from "./Photo";
 import TheseTags from "./TheseTags";
+
+import './TagFilter.css'
 
 import tagIcon from "../assets/AppStar.png";
 
@@ -34,7 +36,7 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
     zoom: 13,
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const parseDate = (s) => {
     var b = s.split(/\D/);
@@ -100,28 +102,20 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
   };
 
   useEffect(() => {
-    console.log("hello")
     fetchPhotos();
     window.scrollTo(0, 0);
   }, [allTags]);
-  
+
   useEffect(() => {
     if (photos.length) {
-      console.log("hello")
       getPoints(photos);
     }
   }, [allTags, photos]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    navigate(`/${paramsId}/tag`)
-    // if (paramsId) {
-    //   setAllTags((prev) => !prev)
-    // }
-    // return () => {
-    //   setAllTags((prev) => !prev) 
-    // }
-  }, [paramsId])
+    navigate(`/${paramsId}/tag`);
+  }, [paramsId]);
 
   return (
     <div>
@@ -152,7 +146,6 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
           </div>
         </div>
 
-        
         {/* <div
           style={{ marginLeft: "5%" }}
           className="slider-filter-label-select-container"
@@ -173,7 +166,6 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
             <option className="slider-filter-select-option"></option>
           </select>
         </div> */}
-
       </div>
 
       <h2>#{paramsId}</h2>
@@ -196,8 +188,7 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
 
       <div id="mapid">
         <MapContainer
-          className="mapContainer"
-          id={"tagMap"}
+          className="map-container"
           center={[map.lat, map.lng]}
           zoom={map.zoom}
           style={{ width: "90%", height: "80vh" }}
@@ -205,7 +196,6 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
           <TileLayer
             attribution='&copy <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          
           />
 
           {points[photoIndex] && photos[photoIndex] && (
@@ -214,7 +204,6 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
 
           {points[photoIndex] && photos[photoIndex] && (
             <Marker
-              
               icon={myIcon}
               position={points[photoIndex]}
               key={photos[photoIndex]["_id"]}
@@ -230,8 +219,8 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
                 {/* <br /> */}
                 <img
                   src={photos[photoIndex].imageUrl}
-                  alt="testimage"
-                  className="previewImage"
+                  alt="test-image"
+                  className="preview-image"
                 />
               </Popup>
             </Marker>
@@ -244,7 +233,7 @@ const TagFilter = ({ children, allTags, paramsId, setAllTags }) => {
           {[...photos].reverse().map((photo) => {
             return (
               <div className="direction" key={photo._id}>
-                <Photo photo={photo} className={"imageGroup"} />
+                <Photo photo={photo} className="image-group" />
               </div>
             );
           })}

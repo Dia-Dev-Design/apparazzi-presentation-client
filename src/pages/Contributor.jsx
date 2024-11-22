@@ -1,20 +1,20 @@
-import React from "react";
-import { get } from "../services/authService";
-import Photo from "../components/Photo";
-import User from "../components/User";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { get } from "../services/authService";
+
+import './Contributor.css'
+
+import Photo from "../components/Photo";
+import User from "../components/User";
+
 const Contributor = () => {
-  const [photos, setPhotos] = React.useState([]);
-  const [user, setUser] = React.useState({});
+  const [photos, setPhotos] = useState([]);
+  const [user, setUser] = useState({});
 
   const params = useParams();
 
-  React.useEffect(() => {
-    getPhotos();
-  }, []);
-
-  let getPhotos = () => {
+  const getPhotos = () => {
     get(`/photos/${params.id}/contributor`)
       .then((results) => {
         setPhotos(results.data.foundPhotos);
@@ -26,6 +26,10 @@ const Contributor = () => {
       });
   };
 
+  useEffect(() => {
+    getPhotos();
+  }, []);
+
   return (
     <div>
       <h2>{user.username}'s Profile</h2>
@@ -36,9 +40,9 @@ const Contributor = () => {
         {[...photos].reverse().map((photo) => {
           return (
             <div className="direction" key={photo._id}>
-              <Photo photo={photo} className={"imageGroup"} />
+              <Photo photo={photo} className={"image-group"} />
             </div>
-          );
+          )
         })}
       </div>
     </div>

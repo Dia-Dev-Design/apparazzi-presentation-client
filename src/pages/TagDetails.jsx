@@ -1,7 +1,8 @@
-import AllTags from "../components/AllTags";
-import TagFilter from "../components/TagFilter";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+import AllTags from "../components/AllTags";
+import TagFilter from "../components/TagFilter";
 
 const TagDetails = () => {
   const [allTags, setAllTags] = useState(true);

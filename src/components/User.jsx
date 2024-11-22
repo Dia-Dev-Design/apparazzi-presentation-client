@@ -2,21 +2,23 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/auth.context";
 import { DateTime } from "luxon";
 
+import './User.css'
+
 const User = ({user}) => {
 
 
 
 
   return (
-    <div className="userLanding">
+    <div className="user-landing">
 
     {
       user &&
 
-      <div className="homeContainer">
+      <div className="home-container">
         <h3>{user.username} </h3>
         <div
-          className="profilePhoto"
+          className="profile-photo"
           style={{ backgroundImage: `url(${user.imageUrl})` }}
         ></div>
         <h4>{user.name}</h4>

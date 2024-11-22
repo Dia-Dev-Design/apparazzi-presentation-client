@@ -1,0 +1,21 @@
+.home-landing {
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-container {
+    display: block;
+    margin: auto;
+}
+
+
+  @media screen and (max-width: 769px) {
+
+    .home-landing {
+        width: 100%;
+      }
+
+  }

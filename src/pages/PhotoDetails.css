@@ -1,0 +1,30 @@
+.detail-container {
+    padding-top: 1%;
+}
+
+.photo-detail-container {
+    width: 55vw;
+    display: block;
+    margin: auto;
+}
+
+.detail-photo {
+    height: 80vh;
+    display: block;
+    margin: auto;
+}
+
+.detail-content {
+    display: flex;
+    justify-content: center;
+}
+
+.map-container {
+    display: block;
+    margin: auto;
+    z-index: 0;
+}
+
+.preview-image {
+    height: 20vh;
+}

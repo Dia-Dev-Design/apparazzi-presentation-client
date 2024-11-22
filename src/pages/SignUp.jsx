@@ -1,12 +1,17 @@
 import { useState, useContext, } from 'react'
 import { AuthContext } from '../context/auth.context';
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { post } from "../services/authService";
+
 import ConfirmPassword from "../components/ConfirmPassword";
 import Email from "../components/Email";
 import Password from "../components/Password";
 import Username from "../components/Username";
-import PhoneNumber from "../components/PhoneNumber";
-import { post } from "../services/authService";
-import { Link, useNavigate } from "react-router-dom";
+// import PhoneNumber from "../components/PhoneNumber";
+
+import './SignUp.css'
 
 const SignUp = () => {
 
@@ -52,8 +57,8 @@ const SignUp = () => {
   }
 
   return (
-    <div className="homeLanding">
-      <div className="homeContainer">
+    <div className="home-landing">
+      <div className="home-container">
         <form onSubmit={handleSubmit}>
           <h1>APPARAZZI</h1>
           <br/>
@@ -64,7 +69,7 @@ const SignUp = () => {
           {/* <PhoneNumber setPhoneNumber={setPhoneNumber} /> */}
 
           <br />
-          <button type='submit' className="submitButton">Sign Up</button>
+          <button type='submit' className="submit-button">Sign Up</button>
           <br/>
 
           <p>Already have an account?<Link to="/login">Log In</Link></p>

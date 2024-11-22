@@ -6,6 +6,8 @@ import { convertGPS } from "../services/convertGPS";
 
 import { returnMapTime } from "../services/time";
 
+import "./SubmitPhoto.css";
+
 const SubmitPhoto = () => {
   const [photo, setPhoto] = useState({
     description: "",
@@ -16,7 +18,7 @@ const SubmitPhoto = () => {
 
   const [disabled, setDisabled] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState("");
 
   let navigate = useNavigate();
 
@@ -51,29 +53,31 @@ const SubmitPhoto = () => {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
               (position) => {
-                setPhoto((prev) =>({
+                setPhoto((prev) => ({
                   ...prev,
                   ["latitude"]: position.coords.latitude,
                   ["longitude"]: position.coords.longitude,
                 }));
               },
               async (error) => {
-                console.error('Error getting location:', error);
+                console.error("Error getting location:", error);
                 setDisabled((prev) => !prev);
-                alert("Cannot submit photo without allowing location.")
-                setErrorMessage("Cannot submit photo without allowing location.")
+                alert("Cannot submit photo without allowing location.");
+                setErrorMessage(
+                  "Cannot submit photo without allowing location."
+                );
                 post(`/photos/${thisPhoto._id}/delete`, null)
                   .then(() => {
                     setTimeout(() => {
-                      navigate('/profile')
-                    }, 2000)
+                      navigate("/profile");
+                    }, 2000);
                   })
                   .catch((err) => {
-                    console.log(err)
-                  })
+                    console.log(err);
+                  });
               }
             );
-          } 
+          }
         }
       })
       .catch((err) => {
@@ -109,8 +113,8 @@ const SubmitPhoto = () => {
   };
 
   return (
-    <div className="homeLanding">
-      <div className="homeContainer">
+    <div className="home-landing">
+      <div className="home-container">
         <form onSubmit={handleSubmit}>
           <label>
             New Photo
@@ -150,7 +154,7 @@ const SubmitPhoto = () => {
             Submit Photo
           </button>
         </form>
-          {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
       </div>
     </div>
   );

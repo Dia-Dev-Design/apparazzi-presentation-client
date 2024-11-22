@@ -4,13 +4,16 @@ import { useParams } from "react-router-dom";
 import { post, get } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-import { MapContainer, useMap } from "react-leaflet";
+import { MapContainer } from "react-leaflet";
 import { TileLayer, Marker, Popup } from "react-leaflet";
 import TheseTags from "../components/TheseTags";
 import { Link } from "react-router-dom";
-import L from "leaflet";
 
 import Photo from "../components/Photo";
+
+import "./PhotoDetails.css";
+
+import L from "leaflet";
 
 import tagIcon from "../assets/AppStar.png";
 
@@ -31,25 +34,29 @@ const PhotoDetails = () => {
     zoom: 13,
   });
 
-  const params = useParams()
+  const params = useParams();
 
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
 
   const getView = () => {
-    return [photo.latitude, photo.longitude]
-  }
+    return [photo.latitude, photo.longitude];
+  };
 
   const getPhoto = () => {
     get(`/photos/${params.id}/details`)
       .then((res) => {
         console.log("This is the photo", res.data);
-          setPhoto(res.data.result);
-          console.log("Hitting line 50!!!!!!", res.data.result)
-          setMap((prev) => ({...prev, ["lat"]: res.data.result.latitude, ["lng"]: res.data.result.longitude}))
+        setPhoto(res.data.result);
+        console.log("Hitting line 50!!!!!!", res.data.result);
+        setMap((prev) => ({
+          ...prev,
+          ["lat"]: res.data.result.latitude,
+          ["lng"]: res.data.result.longitude,
+        }));
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   };
 
   const deletePhoto = () => {
@@ -88,27 +95,34 @@ const PhotoDetails = () => {
   }, []);
 
   return (
-    <div className="detailContainer">
+    <div className="detail-container">
       {photo && (
         <>
-          <div className="photoDetailContainer">
+          <div className="photo-detail-container">
             <Photo
               photo={photo}
-              className={"detailPhoto"}
-              altClassName={"altClassName"}
+              className="detail-photo"
+              altClassName="photo-detail"
             />
           </div>
 
-          <div className="detailContent">
-            <div className="deleteButton">
-              {photo && photo.contributor && user && user._id === photo.contributor._id && (
-                <button onClick={deletePhoto}>Delete Photo</button>
-              )}
+          <div className="detail-content">
+            <div
+            // className="delete-button"
+            >
+              {photo &&
+                photo.contributor &&
+                user &&
+                user._id === photo.contributor._id && (
+                  <button onClick={deletePhoto}>Delete Photo</button>
+                )}
             </div>
 
             <br />
 
-            <div className="commentsBlock">
+            <div
+            // className="comments-block"
+            >
               <p>{photo.description}</p>
 
               <br />
@@ -148,35 +162,35 @@ const PhotoDetails = () => {
             {photo.latitude && (
               <div id="mapid">
                 <MapContainer
-                  id={"tagMap"}
                   center={getView()}
                   zoom={map.zoom}
                   style={{ width: "90%", height: "80vh" }}
-                  className="mapContainer"
+                  className="map-container"
                 >
                   <TileLayer
                     attribution='&copy <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
 
-                  <Marker
-                    icon={myIcon}
-                    position={getView()}
-                    key={photo["_id"]}
-                  >
+                  <Marker icon={myIcon} position={getView()} key={photo["_id"]}>
                     <Popup>
                       <span>
                         <TheseTags photo={photo} />
                       </span>
                       <br />
                       <span>
-                        <Link to={`/${photo._id}/details`} onClick={() => window.scrollTo(0,0)}>Details</Link>
+                        <Link
+                          to={`/${photo._id}/details`}
+                          onClick={() => window.scrollTo(0, 0)}
+                        >
+                          Details
+                        </Link>
                       </span>
                       <br />
                       <img
                         src={photo.imageUrl}
-                        alt="previewImage"
-                        className="previewImage"
+                        alt="preview-image"
+                        className="preview-image"
                       />
                     </Popup>
                   </Marker>

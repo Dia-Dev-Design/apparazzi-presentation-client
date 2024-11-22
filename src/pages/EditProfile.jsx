@@ -3,6 +3,7 @@ import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { post } from "../services/authService";
 import { fileChange } from "../services/fileChange";
+import './EditProfile.css'
 
 const EditProfile = () => {
   const [updatedUser, setupdatedUser] = useState(null);
@@ -16,7 +17,6 @@ const EditProfile = () => {
     setDisabled(true)
     fileChange(e)
       .then((res) => {
-        console.log("This is the result of the file upload++++++>", res.data)
         setupdatedUser((prev) => ({...prev, ["imageUrl"]: res.data.image}))
         setDisabled(false)
       })
@@ -46,14 +46,13 @@ const EditProfile = () => {
 
   useEffect(() => {
     if(user) {
-      console.log("This is the user =====>", user)
       setupdatedUser(user)
     }
   }, [user])
 
   return (
-    <div className="homeLanding">
-      <div className="homeContainer">
+    <div className="home-landing">
+      <div>
         <h1>Edit Profile</h1>
         <br />
 

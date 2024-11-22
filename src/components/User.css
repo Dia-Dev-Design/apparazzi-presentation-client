@@ -1,0 +1,18 @@
+.user-landing {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.home-container {
+  display: block;
+  margin: auto;
+}
+
+.profile-photo {
+  height: 300px;
+  width: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}

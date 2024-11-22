@@ -1,0 +1,12 @@
+.columnated {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    -ms-grid-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    -ms-grid-rows: minmax(100px, auto);
+}
+
+.direction {
+    width: 30vw;
+}

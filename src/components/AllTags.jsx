@@ -5,10 +5,13 @@ import { get } from "../services/authService";
 
 import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 
 import Photo from "./Photo";
 import TheseTags from "./TheseTags";
+
+import './AllTags.css'
 
 import tagIcon from "../assets/AppStar.png";
 
@@ -46,7 +49,6 @@ const AllTags = ({ children, allTags, paramsId }) => {
   useEffect(() => {
     fetchPhotos();
     window.scrollTo(0, 0);
-
     // map.closePopup(popUpRef)
   }, [allTags, paramsId]);
 
@@ -60,8 +62,7 @@ const AllTags = ({ children, allTags, paramsId }) => {
 
       <div id="mapid">
         <MapContainer
-          className="mapContainer"
-          id={"tagMap"}
+          className="map-container"
           center={[map.lat, map.lng]}
           zoom={map.zoom}
           style={{ width: "90%", height: "80vh" }}
@@ -90,7 +91,7 @@ const AllTags = ({ children, allTags, paramsId }) => {
                     <img
                       src={spot.imageUrl}
                       alt="testimage"
-                      className="previewImage"
+                      className="preview-image"
                     />
                   </Popup>
                 </Marker>
@@ -105,7 +106,7 @@ const AllTags = ({ children, allTags, paramsId }) => {
           {[...photos].reverse().map((photo) => {
             return (
               <div className="direction" key={photo._id}>
-                <Photo photo={photo} className={"imageGroup"} />
+                <Photo photo={photo} className="image-group" />
               </div>
             );
           })}
