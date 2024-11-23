@@ -4,6 +4,7 @@ import { get } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import Photo from "../components/Photo";
 import User from "../components/User";
+import styled from "styled-components";
 
 const Profile = () => {
   
@@ -17,7 +18,7 @@ const Profile = () => {
         console.log("These are the results", results.data);
         setPhotos(results.data);
       })
-       .catch((err) => {
+      .catch((err) => {
         console.log(err.message);
       });
   };
@@ -27,35 +28,45 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="theProfile">
+    <ProfileContainer>
       <h2>Your Profile</h2>
-
       {user && <User user={user} />}
-
       <Link to="/edit-profile">Edit Profile</Link>
 
-
-        {
-           photos.length ? 
-        
-
-      <div className="columnated">
-                {photos.map((photo) => {
-                return (
-                  <div className="direction" key={photo._id}>
-                    <Photo photo={photo} className={"imageGroup"} />
-                  </div>
-                );
-              })}
-      </div>
-
-
-
-          : <p>No photos yet.</p>
-
-        }
-    </div>
+      {photos.length ? (
+        <PhotoGrid>
+          {photos.map((photo) => (
+            <PhotoWrapper key={photo._id}>
+              <Photo photo={photo} />
+            </PhotoWrapper>
+          ))}
+        </PhotoGrid>
+      ) : (
+        <p>No photos yet.</p>
+      )}
+    </ProfileContainer>
   );
 };
 
 export default Profile;
+
+const ProfileContainer = styled.div`
+  text-align: center;
+  padding: 20px;
+`;
+
+const PhotoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+  padding: 10px;
+`;
+
+const PhotoWrapper = styled.div`
+  img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+`;
