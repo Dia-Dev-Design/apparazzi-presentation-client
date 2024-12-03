@@ -1,93 +1,162 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-
 import { AuthContext } from "../context/auth.context";
-
-// import AppIcon from "../assets/ApparazziIcon_v2.jpg";
 import AppIcon from "../assets/ApparazziIconSmall.jpg";
 import UserIcon from "../assets/user.png";
 import SubmitIcon from "../assets/add_image.png";
-import NotificationIcon from "../assets/notification.png";
+import styled from "styled-components";
 
 const Navbar = () => {
-
-    const [menuOpen, setMenuOpen] = useState(false);
-
-    const { logOutUser } = useContext(AuthContext)
-
-    let token = localStorage.getItem("authToken");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { logOutUser } = useContext(AuthContext);
+  const token = localStorage.getItem("authToken");
 
   return (
-    <div className="navbar">
-    <header className="nav-wrapper">
-      <div className="navIconContainer">
-        <Link to="/" className="navIconImage">
-          <img className="navIcon" src={AppIcon} alt="appIcon"  />
-        </Link>
-        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          &#9776;
-        </div>
-      </div>
+    <NavBar>
+      <NavWrapper>
+        <NavIconContainer>
+          <StyledLink to="/">
+            <NavIcon src={AppIcon} alt="App Icon" />
+          </StyledLink>
+        </NavIconContainer>
 
-      {token ? (
-        <nav className={`nav-items ${menuOpen ? "show" : ""}`}>
-          <Link to="/" className="icon">
-            Home
-          </Link>
-          {/* <Link to="/leaderboard" className="icon">
-            LeaderBoard
-          </Link> */}
-          {/* <Link to="/about" className="icon">
-            About
-          </Link> */}
-          <Link to="/allPhotos" className="icon" style={{width: "fit-content"}}>
-            All Photos
-          </Link>
-          {/* <Link to="/tags" className="icon">
-            Tags
-          </Link> */}
-          <Link to="/submit-photo" className="icon sumbitA">
-            {/* Submit (fiximage) */}
-            <img className="submitImage" src={SubmitIcon} alt="SubmitIcon" />
-          </Link>
-          <Link to="/profile" className="icon">
-            {/* Profile (fiximage) */}
-            <img className="profileNav" src={UserIcon} alt="UserIcon"  />
-          </Link>
-          {/* <Link to="/notifications" className="icon">
-            Notifications (fiximage)
-            <img
-              className="navbarIcon2"
-              src={NotificationIcon}
-              alt="NotificationIcon"
-            />
-          </Link> */}
-          <button onClick={logOutUser} className="navButton">
-            Logout
-          </button>
-        </nav>
-      ) : (
-        <nav className={`nav-items ${menuOpen ? "show" : ""}`}>
-          <Link to="/" className="icon">
-            Home
-          </Link>
-          {/* <Link to="/inventory" className="icon">
-            Inventory
-          </Link>
-          <Link to="/about" className="icon">
-            About
-          </Link> */}
-          <button className="navButton">
-            <Link to="/login">Log In</Link>
-          </button>
-          <button className="navButton">
-            <Link to="/signup">Sign Up</Link>
-          </button>
-        </nav>
-      )}
-    </header>
-  </div>
-  )
-}
+        <Hamburger onClick={() => setMenuOpen(!menuOpen)}>&#9776;</Hamburger>
 
-export default Navbar
+        <Menu open={menuOpen}>
+          {token ? (
+            <NavRightContainer>
+              <StyledLink to="/AllPhotos" className="nav-link">
+                All Photos
+              </StyledLink>
+              <StyledLink to="/submit-photo">
+                <SubmitImage src={SubmitIcon} alt="Submit Photo" />
+              </StyledLink>
+              <StyledLink to="/profile">
+                <ProfileIcon src={UserIcon} alt="User Profile" />
+              </StyledLink>
+              <LogoutButton onClick={() => logOutUser()}>Logout</LogoutButton>
+            </NavRightContainer>
+          ) : (
+            <>
+              <StyledLink to="/">Home</StyledLink>
+              <StyledLink to="/login">Log In</StyledLink>
+              <StyledLink to="/signup">Sign Up</StyledLink>
+            </>
+          )}
+        </Menu>
+      </NavWrapper>
+    </NavBar>
+  );
+};
+
+export default Navbar;
+
+const NavBar = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: #fff;
+  border-bottom: 1px solid #dfdfdf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const NavWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+`;
+
+const NavIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NavIcon = styled.img`
+  height: 40px;
+  border-radius: 50%;
+`;
+
+const Menu = styled.nav`
+  display: flex;
+  align-items: center;
+  border-radius: 7px;
+  @media (max-width: 769px) {
+    display: ${({ open }) => (open ? "flex" : "none")};
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 250px;
+    background: #fff;
+    border: 1px solid #dfdfdf;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+  }
+`;
+
+const NavRightContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center; /* Center items horizontally */
+
+  @media (max-width: 769px) {
+    flex-direction: column;
+    align-items: center; /* Center items vertically */
+    width: 100%;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 500;
+  text-align: center; /* Center text */
+
+  @media (max-width: 769px) {
+    padding: 10px 0;
+    width: 100%; /* Ensure full width for centering */
+  }
+`;
+
+const ProfileIcon = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+const SubmitImage = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+const LogoutButton = styled.button`
+  background-color: black;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center; /* Center text */
+  width: 100%; /* Ensure it takes up the full width on small screens */
+
+  @media (min-width: 770px) {
+    width: auto; /* Default size for larger screens */
+  }
+`;
+
+const Hamburger = styled.div`
+  font-size: 30px;
+  cursor: pointer;
+  display: none;
+  @media (max-width: 769px) {
+    display: block;
+  }
+`;
