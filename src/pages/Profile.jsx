@@ -58,9 +58,12 @@ const ProfileContainer = styled.div`
 const PhotoGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  gap: 5px;
   margin-top: 20px;
   padding: 10px;
+  @media (max-width: 769px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 const PhotoWrapper = styled.div`

@@ -128,7 +128,12 @@ const PhotoGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 10px;
+  gap: 5px;
+  @media (max-width: 769px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
+
 
 const PhotoWrapper = styled.div`
   width: 100%;

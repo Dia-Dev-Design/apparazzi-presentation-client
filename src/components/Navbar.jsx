@@ -105,11 +105,11 @@ const NavRightContainer = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  justify-content: center; /* Center items horizontally */
+  justify-content: center;
 
   @media (max-width: 769px) {
     flex-direction: column;
-    align-items: center; /* Center items vertically */
+    align-items: center;
     width: 100%;
   }
 `;
@@ -119,11 +119,11 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   padding: 10px;
   font-weight: 500;
-  text-align: center; /* Center text */
+  text-align: center;
 
   @media (max-width: 769px) {
     padding: 10px 0;
-    width: 100%; /* Ensure full width for centering */
+    width: 100%;
   }
 `;
 
@@ -144,11 +144,11 @@ const LogoutButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  text-align: center; /* Center text */
-  width: 100%; /* Ensure it takes up the full width on small screens */
+  text-align: center;
+  width: 100%;
 
   @media (min-width: 770px) {
-    width: auto; /* Default size for larger screens */
+    width: auto;
   }
 `;
 
