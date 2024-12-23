@@ -34,7 +34,6 @@ const Navbar = () => {
               <StyledLink to="/profile">
                 <ProfileIcon src={UserIcon} alt="User Profile" />
               </StyledLink>
-              <LogoutButton onClick={() => logOutUser()}>Logout</LogoutButton>
             </NavRightContainer>
           ) : (
             <>
@@ -93,9 +92,9 @@ const Menu = styled.nav`
     position: absolute;
     top: 50px;
     right: 0;
-    width: 250px;
+    width: 200px;
     background: #fff;
-    border: 1px solid #dfdfdf;
+    border: 2px solid #dfdfdf;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     padding: 10px;
   }
@@ -110,7 +109,7 @@ const NavRightContainer = styled.div`
   @media (max-width: 769px) {
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 90%;
   }
 `;
 
@@ -137,20 +136,6 @@ const SubmitImage = styled.img`
   height: 40px;
 `;
 
-const LogoutButton = styled.button`
-  background-color: black;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  width: 100%;
-
-  @media (min-width: 770px) {
-    width: auto;
-  }
-`;
 
 const Hamburger = styled.div`
   font-size: 30px;
