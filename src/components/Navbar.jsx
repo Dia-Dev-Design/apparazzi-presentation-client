@@ -5,7 +5,6 @@ import AppIcon from "../assets/ApparazziIconSmall.jpg";
 import UserIcon from "../assets/user.png";
 import SubmitIcon from "../assets/add_image.png";
 import styled from "styled-components";
-
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { logOutUser } = useContext(AuthContext);
@@ -28,6 +27,7 @@ const Navbar = () => {
               <StyledLink to="/AllPhotos" className="nav-link">
                 All Photos
               </StyledLink>
+              <StyledLink to="/leaderboards">Leaderboards</StyledLink>
               <StyledLink to="/submit-photo">
                 <SubmitImage src={SubmitIcon} alt="Submit Photo" />
               </StyledLink>
