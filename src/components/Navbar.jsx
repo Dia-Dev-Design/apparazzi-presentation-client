@@ -4,47 +4,54 @@ import { AuthContext } from "../context/auth.context";
 import AppIcon from "../assets/ApparazziIconSmall.jpg";
 import UserIcon from "../assets/user.png";
 import SubmitIcon from "../assets/add_image.png";
+import SubmitPhoto from "./SubmitPhoto";
 import styled from "styled-components";
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { logOutUser } = useContext(AuthContext);
   const token = localStorage.getItem("authToken");
 
   return (
-    <NavBar>
-      <NavWrapper>
-        <NavIconContainer>
-          <StyledLink to="/">
-            <NavIcon src={AppIcon} alt="App Icon" />
-          </StyledLink>
-        </NavIconContainer>
+    <>
+      <NavBar>
+        <NavWrapper>
+          <NavIconContainer>
+            <StyledLink to="/">
+              <NavIcon src={AppIcon} alt="App Icon" />
+            </StyledLink>
+          </NavIconContainer>
 
         <Hamburger onClick={() => setMenuOpen(!menuOpen)}>&#9776;</Hamburger>
 
-        <Menu open={menuOpen}>
-          {token ? (
-            <NavRightContainer>
-              <StyledLink to="/AllPhotos" className="nav-link">
-                All Photos
-              </StyledLink>
-              <StyledLink to="/leaderboards">Leaderboards</StyledLink>
-              <StyledLink to="/submit-photo">
-                <SubmitImage src={SubmitIcon} alt="Submit Photo" />
-              </StyledLink>
-              <StyledLink to="/profile">
-                <ProfileIcon src={UserIcon} alt="User Profile" />
-              </StyledLink>
-            </NavRightContainer>
-          ) : (
-            <>
-              <StyledLink to="/">Home</StyledLink>
-              <StyledLink to="/login">Log In</StyledLink>
-              <StyledLink to="/signup">Sign Up</StyledLink>
-            </>
-          )}
-        </Menu>
-      </NavWrapper>
-    </NavBar>
+          <Menu open={menuOpen}>
+            {token ? (
+              <NavRightContainer>
+                <StyledLink to="/AllPhotos" className="nav-link">
+                  All Photos
+                </StyledLink>
+                <StyledLink to="/leaderboards">Leaderboards</StyledLink>
+                <SubmitButton onClick={() => setIsModalOpen(true)}>
+                  <SubmitImage src={SubmitIcon} alt="Submit Photo" />
+                </SubmitButton>
+                <StyledLink to="/profile">
+                  <ProfileIcon src={UserIcon} alt="User Profile" />
+                </StyledLink>
+              </NavRightContainer>
+            ) : (
+              <>
+                <StyledLink to="/">Home</StyledLink>
+                <StyledLink to="/login">Log In</StyledLink>
+                <StyledLink to="/signup">Sign Up</StyledLink>
+              </>
+            )}
+          </Menu>
+        </NavWrapper>
+      </NavBar>
+
+      {isModalOpen && <SubmitPhoto isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
+    </>
   );
 };
 
@@ -126,6 +133,12 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const SubmitButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
 const ProfileIcon = styled.img`
   width: 40px;
   height: 40px;
@@ -135,7 +148,6 @@ const SubmitImage = styled.img`
   width: 40px;
   height: 40px;
 `;
-
 
 const Hamburger = styled.div`
   font-size: 30px;

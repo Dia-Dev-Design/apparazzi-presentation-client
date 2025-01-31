@@ -12,7 +12,6 @@ import Tags from "./pages/Tags";
 import AllPhotos from "./pages/AllPhotos";
 import PhotoDetails from "./pages/PhotoDetails";
 import EditProfile from "./pages/EditProfile";
-import SubmitPhoto from "./pages/SubmitPhoto";
 import TagDetails from "./pages/TagDetails";
 import DeleteProfile from "./pages/DeleteProfile";
 import Contributor from "./pages/Contributor";
@@ -48,7 +47,6 @@ function App() {
         <Route path="/:id/tag" element={<TagDetails />}></Route>
         <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path="/delete-profile" element={<DeleteProfile />}></Route>
-        <Route path="/submit-photo" element={<SubmitPhoto />}></Route>
         <Route path="/:id/contributor" element={<Contributor />}></Route>
         <Route path="/leaderboards" element={<Leaderboards />}></Route>
 

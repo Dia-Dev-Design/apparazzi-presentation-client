@@ -70,18 +70,20 @@ const LeaderboardContent = styled.div`
   width: 100%;
   margin-top: 5vh;
    @media (max-width: 680px){
-  margin-right: 50px;
+  margin-right: 10px;
   }
 `;
 
 const WeeklyLeaderboardContainer = styled.div`
   margin-bottom: 40px;
   position: relative;
+  margin-left: 35px;
 `;
 
 const AllTimeLeaderboardContainer = styled.div`
   margin-top: 40px;
   position: relative;
+  margin-left: 50px;
 `;
 
 const WeeklyLeaderboardHeader = styled.h2`
@@ -110,33 +112,45 @@ const AllTimeLeaderboardHeader = styled.h2`
 
 const ViewAllWeekly = styled.div`
   position: absolute;
-  right: -110px;
+  right: -80px;
   top: 20px;
   font-size: 0.9rem;
   color: grey;
   cursor: pointer;
   text-decoration: underline;
 @media (max-width: 1000px){
-  right: 0px;
+  right: 20px;
   }
   @media (max-width: 680px) {
-    right: 15px;
+    right: 65px;
+  }
+     @media (max-width: 480px) {
+    right: 75px;
+  }
+    @media (max-width: 390px) {
+    right: 85px;
   }
 `;
 
 const ViewAllTime = styled.div`
   position: absolute;
-  right: -100px;
+  right: -60px;
   top: 20px;
   font-size: 0.9rem;
   color: grey;
   cursor: pointer;
   text-decoration: underline;
   @media (max-width: 1000px){
-  right: 0px;
+  right: 40px;
   }
   @media (max-width: 680px) {
-    right: 15px;
+    right: 80px;
+  }
+    @media (max-width: 480px) {
+    right: 90px;
+  }
+    @media (max-width: 390px) {
+    right: 95px;
   }
 `;
 
@@ -144,7 +158,7 @@ const LeaderboardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, auto);
-  gap: 10px;
+  gap: 5px;
   width: 100%;
 `;
 
@@ -195,6 +209,9 @@ const AmountSold = styled.span`
    margin-top: 75px;
    margin-left: -33px;
    }
+    @media (max-width: 420px) {
+    margin-left: -60px;
+  }
   & .number {
     font-size: 1.1rem;
     font-weight: bold;
