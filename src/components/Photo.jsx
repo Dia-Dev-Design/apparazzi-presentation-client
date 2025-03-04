@@ -72,6 +72,17 @@ const Photo = (props) => {
           </ContributorInfo>
         )}
       </PhotoDetails>
+      <BuyPriceContainer>
+      <Link
+  to={{
+    pathname: `/buyphoto/${props.photo._id}`,
+    state: { photo: props.photo }
+  }}
+>
+  <BuyButton>Buy</BuyButton>
+</Link>
+        <Price>$125</Price>
+      </BuyPriceContainer>
     </PhotoCard>
   );
 };
@@ -133,4 +144,34 @@ const LikeButton = styled.button`
   &:hover {
     color: red;
   }
+`;
+
+const BuyPriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid grey;
+  padding: 1px;
+  margin: 0px auto 0px;
+  margin-bottom: 10px;
+  max-width: 100px;
+  margin-top: -8px;
+  border-radius: 5px;
+`;
+
+const BuyButton = styled.button`
+  color: white;
+  background: black;
+  font-size: 0.7rem;
+  padding: 4px 15px;
+  margin-left: 1px;
+  margin-right: 2px;
+  border: none;
+  border-radius: 5px;
+`;
+
+const Price = styled.div`
+  color: black;
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-left: 1px solid grey;
 `;

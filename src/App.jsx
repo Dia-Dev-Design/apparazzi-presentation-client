@@ -17,6 +17,7 @@ import DeleteProfile from "./pages/DeleteProfile";
 import Contributor from "./pages/Contributor";
 import Navbar from "./components/Navbar";
 import Leaderboards from './pages/Leaderboards';
+import BuyPhoto from "./pages/BuyPhoto";
 
 function App() {
   
@@ -49,7 +50,7 @@ function App() {
         <Route path="/delete-profile" element={<DeleteProfile />}></Route>
         <Route path="/:id/contributor" element={<Contributor />}></Route>
         <Route path="/leaderboards" element={<Leaderboards />}></Route>
-
+        <Route path="/buyphoto" element ={<BuyPhoto />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>

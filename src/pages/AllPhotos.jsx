@@ -129,8 +129,11 @@ const PhotoGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   padding: 10px;
   gap: 5px;
-  @media (max-width: 769px) {
+  @media (max-width: 800px) {
     grid-template-columns: repeat(3, 1fr);
+  }
+    @media (max-width: 515px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 

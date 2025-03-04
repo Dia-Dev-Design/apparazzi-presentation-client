@@ -152,15 +152,13 @@ const PhotoGrid = styled.div`
   margin-top: 20px;
   padding: 10px;
 
-  @media (max-width: 769px) {
+  @media (max-width: 800px) {
     grid-template-columns: repeat(3, 1fr);
   }
-     @media (max-width: 600px) {
+     @media (max-width: 515px) {
     grid-template-columns: repeat(2, 1fr);
   }
-    @media (max-width: 480px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
+    
 `;
 
 const PhotoWrapper = styled.div`
